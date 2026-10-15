@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thiệp Chúc Mừng 20/10 - Hộp Thiệp</title>
+  <link rel="stylesheet" href="styles.css?v=2.2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Dancing+Script:wght@600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Canvas nền hiệu ứng hạt: Cánh hoa 🌸, Trái tim ❤️ & Bụi sao ✨ -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-brand">
+      <div class="brand-logo-glow">🌸</div>
+      <div>
+        <h1>Thiệp 20/10</h1>
+        <span class="header-subtitle">Chúc mừng ngày Phụ nữ Việt Nam</span>
+      </div>
+      <span id="unseen-badge" class="badge" style="display:none;"></span>
+    </div>
+
+    <div class="header-actions">
+      <div class="user-info">
+        <span id="user-greeting" class="user-name"></span>
+        <span id="gender-tag" class="badge-gender"></span>
+        <button id="btn-logout" class="btn-logout">Đăng xuất</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs (Nút tạo hình Bông hoa 🌸 & Trái tim 💖) -->
+  <nav class="nav-tabs" id="nav-tabs">
+    <button class="tab-btn tab-flower" id="btn-tab-inbox" data-tab="inbox" type="button">
+      <span class="tab-shape-icon">🌸</span>
+      <span class="tab-label">Hộp Thiệp 20/10</span>
+      <span id="inbox-count" class="tab-count" style="display:none;">0</span>
+    </button>
+    <button class="tab-btn tab-heart active" id="btn-tab-create" data-tab="create" type="button">
+      <span class="tab-shape-icon">💖</span>
+      <span class="tab-label">Gửi Thiệp Chúc Mừng</span>
+    </button>
+    <button class="tab-btn tab-flower" id="btn-tab-sent" data-tab="sent" type="button">
+      <span class="tab-shape-icon">🌷</span>
+      <span class="tab-label">Thiệp Đã Tạo</span>
+      <span id="sent-count" class="tab-count" style="display:none;">0</span>
+    </button>
+  </nav>
+
+  <main>
+    <!-- TAB 1: FORM TẠO & GỬI THIỆP -->
+    <section id="pane-create" class="tab-pane">
+      <div class="form-card">
+        <h2 class="form-title">Gửi Thiệp Chúc Mừng 20/10 🌸</h2>
+        <p class="form-subtitle">Dành tặng những lời chúc ngọt ngào, ý nghĩa nhất tới các bạn nữ nhân ngày Phụ nữ Việt
+          Nam!</p>
+
+        <form id="create-card-form">
+          <!-- Hộp tìm kiếm bạn nữ nhanh (theo Tên hoặc MSSV) -->
+          <div class="form-group recipient-search-box">
+            <label for="recipientSearch">🔍 Tìm kiếm bạn nữ nhận thiệp (Gõ Tên hoặc MSSV)</label>
+            <div class="input-search-wrapper">
+              <input type="text" id="recipientSearch" class="form-control"
+                placeholder="Gõ tên hoặc MSSV để chọn nhanh (Ví dụ: Hoa, 26DH260089...)" autocomplete="off" />
+              <div id="recipient-search-spinner" class="search-mini-spinner" style="display: none;"></div>
+            </div>
+            <!-- Danh sách gợi ý bạn nữ -->
+            <div id="recipient-dropdown" class="recipient-dropdown" style="display: none;"></div>
+          </div>
+
+          <div class="recipient-fields-row">
+            <div class="form-group" style="flex: 1;">
+              <label for="recipientCode">Mã sinh viên người nhận (MSSV) *</label>
+              <input type="text" id="recipientCode" class="form-control" placeholder="Ví dụ: 26DH260089..." required />
+              <small style="color: #bbb; font-size: 0.8rem; margin-top: 4px; display: block;">
+                💡 Dù bạn nữ chưa từng vào web, bạn vẫn có thể gửi trước. Khi bạn ấy đăng nhập sẽ thấy thiệp ngay!
+              </small>
+            </div>
+
+            <div class="form-group" style="flex: 1;">
+              <label for="recipientName">Tên bạn nữ (Tự điền khi chọn)</label>
+              <input type="text" id="recipientName" class="form-control" placeholder="Họ và tên bạn nữ..." />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cardTitle">Tiêu đề thiệp *</label>
+            <input type="text" id="cardTitle" class="form-control" value="🌸 Chúc mừng bạn ngày 20/10 thật hạnh phúc!"
+              required />
+          </div>
+          <!-- Envelope Skin Selector -->
+          <div class="form-group" id="template-group" style="display:none;">
+            <label>Chọn mẫu vỏ phong bì</label>
+            <div class="envelope-picker">
+              <div class="envelope-option active" data-theme="classic" title="Đỏ Cổ Điển">
+                <div class="envelope-mini theme-classic">
+                  <div class="mini-flap"></div>
+                  <div class="mini-seal">⚜️</div>
+                  <div class="mini-label">Cổ Điển</div>
+                </div>
+              </div>
+              <div class="envelope-option" data-theme="rose" title="Hồng Pastel">
+                <div class="envelope-mini theme-rose">
+                  <div class="mini-flap"></div>
+                  <div class="mini-seal">🌸</div>
+                  <div class="mini-label">Hồng Pastel</div>
+                </div>
+              </div>
+              <div class="envelope-option" data-theme="royal" title="Vàng Hoàng Gia">
+                <div class="envelope-mini theme-royal">
+                  <div class="mini-flap"></div>
+                  <div class="mini-seal">👑</div>
+                  <div class="mini-label">Hoàng Gia</div>
+                </div>
+              </div>
+              <div class="envelope-option" data-theme="jade" title="Xanh Ngọc Bích">
+                <div class="envelope-mini theme-jade">
+                  <div class="mini-flap"></div>
+                  <div class="mini-seal">🍀</div>
+                  <div class="mini-label">Ngọc Bích</div>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" id="selectedEnvelopeTheme" value="classic" />
+          </div>
+
+          <div class="form-group">
+            <label>Gợi ý lời chúc hay (Bấm để chọn nhanh):</label>
+            <div class="wish-chips">
+              <span class="wish-chip"
+                data-wish="Chúc bạn ngày 20/10 luôn rạng rỡ, xinh đẹp, học giỏi và luôn ngập tràn niềm vui hạnh phúc! 🌸✨">✨
+                Xinh đẹp & Rạng rỡ</span>
+              <span class="wish-chip"
+                data-wish="Nhân ngày 20/10, chúc bạn nhận được thật nhiều hoa, nhiều quà và nụ cười luôn nở trên môi nhé! 🌷🎁">🌷
+                Nhiều hoa & Quà</span>
+              <span class="wish-chip"
+                data-wish="Chúc cô bạn cùng lớp của mình một ngày 20/10 thật ngọt ngào, ấm áp! Cảm ơn vì đã luôn là một người bạn tuyệt vời! 💖">💖
+                Tình bạn ngọt ngào</span>
+              <span class="wish-chip"
+                data-wish="Chúc bạn luôn tự tin, tỏa sáng và gặt hái thật nhiều điểm 10 trong kỳ học này nhé! 💯💐">💯
+                Điểm 10 rực rỡ</span>
+            </div>
+
+            <label for="cardMessage">Nội dung lời chúc *</label>
+            <textarea id="cardMessage" class="form-control"
+              placeholder="Nhập những lời chúc chân thành của bạn tại đây..." required></textarea>
+          </div>
+
+          <button type="submit" id="btn-submit-card" class="btn-send">
+            🌸 Gửi thiệp chúc mừng ngay
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- TAB 2: HỘP THIỆP NHẬN ĐƯỢC -->
+    <section id="pane-inbox" class="tab-pane">
+      <div class="deck-header">
+        <div>
+          <h2 class="deck-heading">🌸 Hộp Thư Thiệp 20/10 Nhận Được</h2>
+          <p class="deck-subheading">✨ Chạm vào phong bì để mở và đọc lời chúc!</p>
+        </div>
+      </div>
+      <div class="lixi-stage-wrapper">
+        <div id="card-list" class="lixi-fan-deck"></div>
+      </div>
+    </section>
+
+    <!-- TAB 3: THIỆP ĐÃ TẠO / ĐÃ GỬI -->
+    <section id="pane-sent" class="tab-pane">
+      <div class="deck-header">
+        <div>
+          <h2 class="deck-heading">📤 Thư Thiệp 20/10 Bạn Đã Tạo</h2>
+          <p class="deck-subheading">✨ Chạm vào phong bì để xem lại lời chúc đã gửi!</p>
+        </div>
+      </div>
+      <div class="lixi-stage-wrapper">
+        <div id="sent-list" class="lixi-fan-deck"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal xem chi tiết thiệp cổ điển -->
+  <div id="card-modal" class="modal">
+    <div class="card-detail">
+      <div class="modal-decor-top">⚜️ ❧ 🌸 ☙ ⚜️</div>
+      <h2 id="modal-title"></h2>
+      <div id="modal-from" class="modal-from"></div>
+      <div id="modal-msg" class="modal-msg"></div>
+      <button class="close-btn" id="modal-close">Khép lại bức thư 📜</button>
+    </div>
+  </div>
+
+  <!-- Toast thông báo -->
+  <div id="toast" class="alert-toast"></div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+
+</html>

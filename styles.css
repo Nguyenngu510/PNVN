@@ -1,0 +1,1751 @@
+/* styles.css – premium dark glassmorphism 20/10 theme */
+:root {
+  --bg: #0d0a12;
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(240, 98, 146, 0.2);
+  --accent: #e91e63;
+  --accent-light: #ff80ab;
+  --accent-gradient: linear-gradient(135deg, #e91e63, #ad1457);
+  --unseen: #ff9800;
+  --seen: #4caf50;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Background Canvas - Hiệu ứng hạt Cánh hoa, Trái tim & Bụi sao */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   CUSTOM CURSOR (Tùy chỉnh con trỏ chuột từ thư mục frontend)
+   Người dùng có thể đổi ảnh con trỏ bằng cách thay các file sau:
+   - Con trỏ mặc định: frontend/assets/cursor.svg, frontend/assets/cursor.png, hoặc frontend/cursor.png / cursor.svg / cursor.cur
+   - Con trỏ khi trỏ vào nút/link: frontend/assets/cursor-pointer.svg / cursor-pointer.png, hoặc frontend/cursor-pointer.png / cursor-pointer.svg / cursor-pointer.cur
+   ========================================================================== */
+html, body {
+  cursor: url('assets/cursor.svg') 3 3,
+          url('assets/cursor.png') 3 3,
+          url('assets/cursor.cur') 3 3,
+          url('cursor.svg') 3 3,
+          url('cursor.png') 3 3,
+          url('cursor.cur') 3 3,
+          auto;
+}
+
+button, a, select,
+input[type="submit"], input[type="button"], input[type="reset"],
+.tab-btn, .lixi-card, .envelope-option, .wish-chip,
+.close-btn, .btn-primary, .btn-logout, .btn-link, .btn-theme,
+.vintage-open-btn, [role="button"], [style*="cursor: pointer"] {
+  cursor: url('assets/cursor-pointer.svg') 10 2,
+          url('assets/cursor-pointer.png') 10 2,
+          url('assets/cursor-pointer.cur') 10 2,
+          url('cursor-pointer.svg') 10 2,
+          url('cursor-pointer.png') 10 2,
+          url('cursor-pointer.cur') 10 2,
+          pointer !important;
+}
+
+input[type="text"], input[type="email"], input[type="password"], textarea {
+  cursor: text !important;
+}
+
+body {
+  background: var(--bg);
+  color: #eee;
+  font-family: var(--font);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+  transition: background 0.8s ease;
+}
+
+.header, .nav-tabs, main, .modal {
+  position: relative;
+  z-index: 10;
+}
+
+.header {
+  padding: 1rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(18, 10, 24, 0.78);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.25);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.45);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-logo-glow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff80ab 0%, #c2185b 100%);
+  border: 1.5px solid #ffd700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 0 16px rgba(255, 64, 129, 0.6);
+  animation: logoPulse 2.5s infinite;
+}
+
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 16px rgba(255, 64, 129, 0.6); }
+  50% { transform: scale(1.06); box-shadow: 0 0 26px rgba(255, 128, 171, 0.9), 0 0 15px rgba(255, 215, 0, 0.6); }
+}
+
+.header h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.6rem;
+  background: linear-gradient(135deg, #ffd700 0%, #ff80ab 60%, #fff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.15;
+}
+
+.header-subtitle {
+  font-size: 0.76rem;
+  color: #f48fb1;
+  display: block;
+  letter-spacing: 0.5px;
+}
+
+.badge {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.25rem 0.8rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 10px rgba(233, 30, 99, 0.4);
+}
+
+.badge-gender {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: 6px;
+}
+.badge-gender.nam {
+  background: rgba(33, 150, 243, 0.2);
+  color: #64b5f6;
+  border: 1px solid rgba(33, 150, 243, 0.4);
+}
+.badge-gender.nu {
+  background: rgba(233, 30, 99, 0.2);
+  color: #f48fb1;
+  border: 1px solid rgba(233, 30, 99, 0.4);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Theme / Background Switcher Dropdown */
+.theme-switcher-wrap {
+  position: relative;
+}
+
+.btn-theme {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  color: #ffd54f;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btn-theme:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: #ffd700;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(255, 215, 0, 0.35);
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: #180d1c;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 16px;
+  padding: 8px;
+  width: 230px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85), 0 0 20px rgba(233, 30, 99, 0.35);
+  backdrop-filter: blur(25px);
+  z-index: 1000;
+  animation: fadeInDown 0.2s ease;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.theme-menu-header {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ffd54f;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 10px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+  margin-bottom: 4px;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.theme-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.theme-option.active {
+  background: rgba(233, 30, 99, 0.25);
+  color: #ff80ab;
+  font-weight: 600;
+  border: 1px solid rgba(233, 30, 99, 0.5);
+}
+
+.theme-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+}
+
+.theme-dot.sakura { background: linear-gradient(135deg, #ff4081, #c2185b); }
+.theme-dot.royal { background: linear-gradient(135deg, #ffd700, #1e3a8a); }
+.theme-dot.sunset { background: linear-gradient(135deg, #ff7043, #e91e63); }
+.theme-dot.burgundy { background: linear-gradient(135deg, #8b1e2d, #ffd700); }
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-name {
+  font-size: 0.95rem;
+  color: #f8bbd0;
+  font-weight: 500;
+}
+
+.btn-logout {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #eee;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-logout:hover {
+  background: rgba(244, 67, 54, 0.3);
+  border-color: #f44336;
+  color: #ff8a80;
+}
+
+/* =========================================
+   Tabs Navigation - Bông Hoa 🌸 & Trái Tim 💖
+   ========================================= */
+.nav-tabs {
+  display: flex;
+  gap: 18px;
+  padding: 1.6rem 2.5rem 0.8rem;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+/* Base tab button reset */
+.tab-btn {
+  position: relative;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tab-btn:hover {
+  transform: translateY(-4px) scale(1.06);
+}
+
+.tab-btn.active {
+  transform: translateY(-6px) scale(1.1);
+}
+
+/* Tab label text */
+.tab-btn .tab-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(255, 200, 220, 0.75);
+  transition: color 0.25s;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+  white-space: nowrap;
+}
+
+.tab-btn:hover .tab-label,
+.tab-btn.active .tab-label {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 200, 220, 0.9);
+}
+
+/* Tab count badge */
+.tab-btn .tab-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: linear-gradient(135deg, #ff4081, #e91e63);
+  color: white;
+  border-radius: 20px;
+  padding: 1px 7px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(233, 30, 99, 0.5);
+  z-index: 2;
+}
+
+/* ==========================================
+   🌸 FLOWER SHAPE – Hình Bông Hoa 5 Cánh
+   ========================================== */
+.tab-btn.tab-flower .tab-shape-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  font-size: 1.9rem;
+  position: relative;
+  filter: drop-shadow(0 3px 10px rgba(255, 160, 200, 0.45));
+  transition: filter 0.25s, transform 0.25s;
+}
+
+/* Cánh hoa dưới hình nút bằng clip-path bông hoa */
+.tab-btn.tab-flower .tab-shape-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: radial-gradient(ellipse at 50% 40%, rgba(255, 182, 215, 0.25) 0%, rgba(220, 80, 140, 0.12) 100%);
+  box-shadow:
+    0 0 0 1.5px rgba(255, 160, 200, 0.3),
+    0 4px 18px rgba(233, 30, 99, 0.25);
+  transform: rotate(0deg);
+  transition: background 0.25s, box-shadow 0.25s;
+  /* Tạo hình bông hoa bằng 5 vòng tròn xen kẽ */
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%,
+    50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+  );
+}
+
+.tab-btn.tab-flower:hover .tab-shape-icon::before,
+.tab-btn.tab-flower.active .tab-shape-icon::before {
+  background: radial-gradient(ellipse at 50% 40%, rgba(255, 192, 220, 0.5) 0%, rgba(233, 30, 99, 0.35) 100%);
+  box-shadow:
+    0 0 0 2px rgba(255, 215, 0, 0.5),
+    0 6px 24px rgba(233, 30, 99, 0.55),
+    0 0 40px rgba(255, 160, 200, 0.3);
+}
+
+.tab-btn.tab-flower .tab-shape-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    rgba(255, 182, 193, 0.18) 0%,
+    rgba(255, 105, 180, 0.12) 20%,
+    rgba(255, 182, 193, 0.18) 40%,
+    rgba(255, 20, 147, 0.1) 60%,
+    rgba(255, 182, 193, 0.18) 80%,
+    rgba(255, 105, 180, 0.12) 100%
+  );
+  border-radius: 50%;
+  animation: flowerSpin 8s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tab-btn.tab-flower:hover .tab-shape-icon::after,
+.tab-btn.tab-flower.active .tab-shape-icon::after {
+  opacity: 1;
+}
+
+@keyframes flowerSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.tab-btn.tab-flower:hover .tab-shape-icon,
+.tab-btn.tab-flower.active .tab-shape-icon {
+  filter: drop-shadow(0 4px 16px rgba(255, 100, 180, 0.75))
+          drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+  animation: flowerPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes flowerPulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50%       { transform: scale(1.08) rotate(8deg); }
+}
+
+/* ==========================================
+   💖 HEART SHAPE – Hình Trái Tim
+   ========================================== */
+.tab-btn.tab-heart .tab-shape-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  font-size: 1.9rem;
+  position: relative;
+  filter: drop-shadow(0 3px 10px rgba(255, 80, 130, 0.4));
+  transition: filter 0.25s, transform 0.25s;
+}
+
+/* Vầng sáng trái tim phía sau emoji */
+.tab-btn.tab-heart .tab-shape-icon::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  background: radial-gradient(ellipse at 50% 60%, rgba(255, 64, 129, 0.2) 0%, transparent 70%);
+  clip-path: path('M 50,30 C 50,22 42,15 34,15 C 22,15 15,25 15,37 C 15,50 28,61 50,75 C 72,61 85,50 85,37 C 85,25 78,15 66,15 C 58,15 50,22 50,30 Z');
+  transition: background 0.25s;
+}
+
+.tab-btn.tab-heart:hover .tab-shape-icon::before,
+.tab-btn.tab-heart.active .tab-shape-icon::before {
+  background: radial-gradient(ellipse at 50% 60%, rgba(255, 64, 129, 0.5) 0%, rgba(255, 215, 0, 0.2) 70%);
+}
+
+.tab-btn.tab-heart:hover .tab-shape-icon,
+.tab-btn.tab-heart.active .tab-shape-icon {
+  filter: drop-shadow(0 4px 16px rgba(255, 64, 129, 0.8))
+          drop-shadow(0 0 10px rgba(255, 215, 0, 0.45));
+  animation: heartBeat 0.8s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+  0%   { transform: scale(1); }
+  14%  { transform: scale(1.15); }
+  28%  { transform: scale(1); }
+  42%  { transform: scale(1.1); }
+  70%  { transform: scale(1); }
+}
+
+/* Active state – golden underline glow */
+.tab-btn.active .tab-label {
+  color: #ffd700;
+  text-shadow:
+    0 0 8px rgba(255, 215, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+}
+
+main {
+  flex: 1;
+  padding: 2rem 2.5rem;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tab-pane {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Card Lists */
+.card-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.card-item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1.4rem;
+  backdrop-filter: blur(10px);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+
+.card-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(233, 30, 99, 0.25);
+  border-color: rgba(233, 30, 99, 0.6);
+}
+
+.card-item.unseen {
+  border-left: 5px solid #e91e63;
+  background: rgba(233, 30, 99, 0.08);
+}
+
+.card-item h3 {
+  margin-bottom: 0.6rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ff80ab;
+}
+
+.card-item .msg {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  color: #e0e0e0;
+  white-space: pre-line;
+}
+
+.card-item .card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.sender-tag {
+  color: #f48fb1;
+  font-weight: 600;
+}
+
+.status-badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.status-badge.unseen {
+  background: rgba(255, 152, 0, 0.2);
+  color: #ffb74d;
+  border: 1px solid #ff9800;
+}
+.status-badge.seen {
+  background: rgba(76, 175, 80, 0.2);
+  color: #81c784;
+  border: 1px solid #4caf50;
+}
+
+/* Create Card Form - Ultra-Glamorous Glassmorphism */
+.form-card {
+  background: rgba(25, 14, 28, 0.78);
+  border: 1.5px solid rgba(255, 215, 0, 0.35);
+  border-radius: 24px;
+  padding: 2.4rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.65), 0 0 25px rgba(233, 30, 99, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.form-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ffd700, #ff4081, #ffd700);
+  background-size: 200% 100%;
+  animation: shimmerBorder 4s linear infinite;
+}
+
+@keyframes shimmerBorder {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+.form-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #ffd54f;
+  margin-bottom: 6px;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
+}
+
+.form-subtitle {
+  color: #f48fb1;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: #f8bbd0;
+  font-weight: 600;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: #ffd700;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.5;
+}
+
+/* Envelope Skin Picker */
+.envelope-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+  margin-bottom: 18px;
+}
+
+.envelope-option {
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 4px;
+  border: 2px solid transparent;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.envelope-option:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 215, 0, 0.6);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.envelope-option.active {
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(255, 215, 0, 0.45);
+}
+
+.envelope-mini {
+  width: 96px;
+  height: 64px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.envelope-mini .mini-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  z-index: 2;
+}
+
+.envelope-mini .mini-seal {
+  position: absolute;
+  top: 14px;
+  font-size: 0.9rem;
+  z-index: 3;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+}
+
+.envelope-mini .mini-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  z-index: 4;
+}
+
+/* Mini Themes */
+.envelope-mini.theme-classic {
+  background: linear-gradient(150deg, #781d28 0%, #50131b 60%, #300a10 100%);
+  border: 1.5px solid #c5a059;
+}
+.envelope-mini.theme-classic .mini-flap {
+  background: linear-gradient(180deg, #681520 0%, #460d13 100%);
+  border-bottom: 1px solid #c5a059;
+}
+
+.envelope-mini.theme-rose {
+  background: linear-gradient(150deg, #c2185b 0%, #880e4f 60%, #5c0733 100%);
+  border: 1.5px solid #ff80ab;
+}
+.envelope-mini.theme-rose .mini-flap {
+  background: linear-gradient(180deg, #ad1457 0%, #6a0033 100%);
+  border-bottom: 1px solid #ff80ab;
+}
+
+.envelope-mini.theme-royal {
+  background: linear-gradient(150deg, #996515 0%, #5a3c0b 60%, #332205 100%);
+  border: 1.5px solid #ffd700;
+}
+.envelope-mini.theme-royal .mini-flap {
+  background: linear-gradient(180deg, #b8860b 0%, #705206 100%);
+  border-bottom: 1px solid #ffd700;
+}
+
+.envelope-mini.theme-jade {
+  background: linear-gradient(150deg, #1b5e20 0%, #0d3813 60%, #051c09 100%);
+  border: 1.5px solid #66bb6a;
+}
+.envelope-mini.theme-jade .mini-flap {
+  background: linear-gradient(180deg, #2e7d32 0%, #0b300f 100%);
+  border-bottom: 1px solid #81c784;
+}
+
+/* Wish Suggestions Chips */
+.wish-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+  margin-bottom: 18px;
+}
+
+.wish-chip {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  color: #ffe082;
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.wish-chip:hover {
+  background: rgba(233, 30, 99, 0.3);
+  border-color: #ffd700;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 64, 129, 0.4), 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.btn-send {
+  background: linear-gradient(135deg, #e91e63 0%, #ad1457 50%, #880e4f 100%);
+  color: #fff;
+  border: 1.5px solid rgba(255, 215, 0, 0.6);
+  padding: 15px 30px;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.55), 0 0 16px rgba(255, 215, 0, 0.4);
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-send::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: rotate(25deg);
+  animation: btnShimmer 3.5s infinite;
+}
+
+@keyframes btnShimmer {
+  0% { left: -60%; }
+  30%, 100% { left: 140%; }
+}
+
+.btn-send:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(233, 30, 99, 0.75), 0 0 25px rgba(255, 215, 0, 0.7);
+  background: linear-gradient(135deg, #ff4081 0%, #c2185b 50%, #ad1457 100%);
+}
+
+.btn-send:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3.5rem 1rem;
+  color: #aaa;
+  font-size: 1.05rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+}
+
+/* Modal Popup */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal.active {
+  display: flex;
+}
+
+/* ==========================================================================
+   CLASSIC VINTAGE LETTER MODAL (BỨC THƯ THIỆP CỔ ĐIỂN ĐỒNG NHẤT)
+   ========================================================================== */
+
+.card-detail {
+  background: #faf4e8 url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%238d6e63' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+  border: 4px double #b8860b;
+  outline: 2px solid #8d6e63;
+  outline-offset: -12px;
+  border-radius: 18px;
+  padding: 36px 38px;
+  max-width: 680px;
+  max-height: 88vh;
+  overflow-y: auto;
+  width: 100%;
+  text-align: left;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 35px rgba(184, 134, 11, 0.5);
+  position: relative;
+  animation: modalPop 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-decor-top {
+  text-align: center;
+  font-size: 1.4rem;
+  color: #b8860b;
+  letter-spacing: 6px;
+  margin-bottom: 4px;
+}
+
+.card-detail h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  color: #7f1d1d;
+  margin-bottom: 14px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Vintage Letter Header Block in Modal */
+.vintage-letter-header-block {
+  text-align: center;
+  margin-bottom: 18px;
+  border-bottom: 2px dashed #b8860b;
+  padding-bottom: 14px;
+  position: relative;
+}
+
+.vintage-wax-seal-large {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #b71c1c 0%, #7f0000 65%, #420000 100%);
+  border: 3px solid #d4af37;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.35);
+  margin: 0 auto 8px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #ffd700;
+}
+
+.vintage-letter-title-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #8b1e2d;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.vintage-letter-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.95rem;
+  color: #4e342e;
+  text-align: left;
+  background: rgba(184, 134, 11, 0.08);
+  padding: 12px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(184, 134, 11, 0.25);
+}
+
+.vintage-letter-meta-grid b {
+  color: #7f1d1d;
+}
+
+/* Modal Content on Vintage Parchment */
+.card-detail .modal-msg {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #2b1810;
+  margin-bottom: 24px;
+  background: #ffffff;
+  padding: 24px 26px;
+  border-radius: 12px;
+  border: 1px solid #d7ccc8;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.04);
+  max-height: 48vh;
+  overflow-y: auto;
+  word-break: break-word;
+}
+
+.card-detail .modal-msg img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 12px 0;
+  display: block;
+  border: 1px solid #d7ccc8;
+}
+
+.card-detail .close-btn {
+  background: linear-gradient(135deg, #8b1e2d 0%, #5d101d 100%);
+  color: #fff9e6;
+  border: 2px solid #d4af37;
+  padding: 12px 38px;
+  border-radius: 8px;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(93, 16, 29, 0.5);
+  transition: all 0.2s;
+  display: block;
+  margin: 0 auto;
+}
+
+.card-detail .close-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(93, 16, 29, 0.7);
+  background: linear-gradient(135deg, #a72338 0%, #701423 100%);
+}
+
+.alert-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #2e7d32;
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 20000;
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ==========================================================================
+   CLASSIC VINTAGE FAN-OUT ENVELOPES DECK (THIỆP CỔ ĐIỂN XOÈ QUẠT)
+   ========================================================================== */
+
+.deck-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 42px;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+.deck-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #ffd54f;
+}
+
+.deck-subheading {
+  color: #f48fb1;
+  font-size: 0.92rem;
+  margin-top: 4px;
+}
+
+/* deck-view-toggle removed – always fan mode */
+
+/* Fan Deck Stage */
+.lixi-stage-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  min-height: 520px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 85px 10px 75px 10px;
+  perspective: 1400px;
+  overflow: visible;
+}
+
+.lixi-fan-deck {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  height: 430px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Individual Vintage Envelope Card */
+.lixi-card {
+  position: absolute;
+  width: 250px;
+  height: 380px;
+  border-radius: 14px;
+  cursor: pointer;
+  transform-origin: 50% 120%;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s ease, filter 0.3s ease;
+  user-select: none;
+}
+
+.lixi-fan-deck:not(.grid-mode) .lixi-card {
+  transform: translate3d(var(--tx, 0), var(--ty, 0), 0) rotate(var(--rot, 0deg));
+}
+
+.lixi-fan-deck:not(.grid-mode) .lixi-card:hover {
+  transform: translate3d(var(--tx, 0), calc(var(--ty, 0) - 36px), 0) rotate(0deg) scale(1.08) !important;
+  z-index: 9999 !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 175, 55, 0.95), 0 0 60px rgba(139, 30, 45, 0.8) !important;
+  filter: brightness(1.06);
+}
+
+/* Vintage Envelope Body */
+.vintage-envelope {
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  background: linear-gradient(150deg, #781d28 0%, #50131b 60%, #300a10 100%);
+  border: 2px solid #c5a059;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.65), 0 0 18px rgba(197, 160, 89, 0.35);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Classic V-shaped Envelope Flap */
+.vintage-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(180deg, #681520 0%, #460d13 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  border-bottom: 2px solid #c5a059;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 4px;
+  z-index: 5;
+}
+
+/* 3D Classic Red Wax Seal */
+.vintage-wax-seal {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #b71c1c 0%, #880e4f 55%, #420000 100%);
+  border: 2px solid rgba(255, 215, 0, 0.75);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -2px 4px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(18px);
+}
+
+.vintage-wax-seal .wax-symbol {
+  font-size: 1.15rem;
+  color: #ffd700;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Vintage Postage Stamp and Postmark */
+.vintage-postage {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.vintage-stamp {
+  width: 30px;
+  height: 36px;
+  background: #fbf5e6;
+  border: 1.5px dashed #8d6e63;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.vintage-stamp small {
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #b71c1c;
+  line-height: 1;
+}
+
+.vintage-postmark {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  color: rgba(255, 215, 0, 0.85);
+  border: 1px solid rgba(255, 215, 0, 0.65);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-12deg);
+}
+
+/* Antique Gold Corner Ornaments */
+.vintage-corner {
+  position: absolute;
+  font-size: 0.95rem;
+  color: #c5a059;
+  line-height: 1;
+  z-index: 4;
+}
+.vintage-corner.top-left { top: 6px; left: 8px; }
+.vintage-corner.top-right { top: 6px; right: 54px; }
+.vintage-corner.bottom-left { bottom: 8px; left: 8px; }
+.vintage-corner.bottom-right { bottom: 8px; right: 8px; }
+
+/* Inner Parchment Frame */
+.vintage-inner-frame {
+  margin: 58px 10px 10px 10px;
+  flex: 1;
+  background: #fbf5e6;
+  border: 2px double #8d6e63;
+  border-radius: 10px;
+  padding: 14px 12px 10px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  box-shadow: inset 0 0 15px rgba(141, 110, 99, 0.25);
+}
+
+/* Destination Block (To / From) */
+.vintage-dest-block {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.82rem;
+  text-align: left;
+  border-bottom: 1px dashed #bcaaa4;
+  padding-bottom: 6px;
+}
+
+.vintage-line {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 2px;
+}
+
+.v-label {
+  color: #6d4c41;
+  font-weight: 600;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.v-name {
+  color: #3e2723;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Divider & Title */
+.vintage-card-divider {
+  text-align: center;
+  color: #8b1e2d;
+  font-size: 0.75rem;
+  margin: 2px 0;
+  letter-spacing: 2px;
+}
+
+.vintage-card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #5d101d;
+  line-height: 1.35;
+  text-align: center;
+  margin: 4px 0;
+  max-height: 48px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Status Row */
+.vintage-status-row {
+  margin: 4px 0;
+}
+
+.vintage-seal-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+}
+.vintage-seal-badge.sealed {
+  background: #ffebee;
+  color: #b71c1c;
+  border: 1px solid #ef9a9a;
+  animation: vintagePulse 1.6s infinite;
+}
+.vintage-seal-badge.opened {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+
+@keyframes vintagePulse {
+  0%, 100% { box-shadow: 0 0 5px rgba(183, 28, 28, 0.3); }
+  50% { box-shadow: 0 0 14px rgba(183, 28, 28, 0.7); }
+}
+
+/* Card Footer */
+.vintage-card-footer {
+  border-top: 1px dashed #bcaaa4;
+  padding-top: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+}
+
+.vintage-date {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  color: #5d4037;
+}
+
+.vintage-open-btn {
+  background: #8b1e2d;
+  color: #fff9e6;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  font-size: 0.68rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid #d4af37;
+}
+
+/* ==========================================================================
+   VINTAGE ENVELOPE THEMES (Classic, Rose, Royal, Jade)
+   ========================================================================== */
+
+/* 1. Theme Rose (Hồng Pastel) */
+.vintage-envelope.theme-rose {
+  background: linear-gradient(150deg, #880e4f 0%, #600735 60%, #3b0320 100%);
+  border-color: #ff80ab;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.65), 0 0 18px rgba(255, 128, 171, 0.35);
+}
+.vintage-envelope.theme-rose .vintage-flap {
+  background: linear-gradient(180deg, #730a42 0%, #470428 100%);
+  border-bottom-color: #ff80ab;
+}
+.vintage-envelope.theme-rose .vintage-wax-seal {
+  background: radial-gradient(circle at 35% 35%, #f06292 0%, #c2185b 55%, #880e4f 100%);
+  border-color: #ff80ab;
+}
+.vintage-envelope.theme-rose .vintage-inner-frame {
+  background: #fff5f8;
+  border-color: #c2185b;
+}
+.vintage-envelope.theme-rose .vintage-card-divider {
+  color: #c2185b;
+}
+.vintage-envelope.theme-rose .vintage-card-title {
+  color: #880e4f;
+}
+.vintage-envelope.theme-rose .vintage-open-btn {
+  background: #ad1457;
+  border-color: #ff80ab;
+}
+
+/* 2. Theme Royal (Vàng Hoàng Gia) */
+.vintage-envelope.theme-royal {
+  background: linear-gradient(150deg, #7c5208 0%, #523604 60%, #301f02 100%);
+  border-color: #ffd700;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.65), 0 0 20px rgba(255, 215, 0, 0.4);
+}
+.vintage-envelope.theme-royal .vintage-flap {
+  background: linear-gradient(180deg, #6e4806 0%, #452d03 100%);
+  border-bottom-color: #ffd700;
+}
+.vintage-envelope.theme-royal .vintage-wax-seal {
+  background: radial-gradient(circle at 35% 35%, #ffd700 0%, #e6a100 55%, #805500 100%);
+  border-color: #fff;
+}
+.vintage-envelope.theme-royal .vintage-inner-frame {
+  background: #fffdf5;
+  border-color: #996515;
+}
+.vintage-envelope.theme-royal .vintage-card-divider {
+  color: #996515;
+}
+.vintage-envelope.theme-royal .vintage-card-title {
+  color: #5a3c0b;
+}
+.vintage-envelope.theme-royal .vintage-open-btn {
+  background: #7c5208;
+  border-color: #ffd700;
+}
+
+/* 3. Theme Jade (Xanh Ngọc Bích) */
+.vintage-envelope.theme-jade {
+  background: linear-gradient(150deg, #134217 0%, #0a270d 60%, #041406 100%);
+  border-color: #66bb6a;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.65), 0 0 18px rgba(102, 187, 106, 0.35);
+}
+.vintage-envelope.theme-jade .vintage-flap {
+  background: linear-gradient(180deg, #103814 0%, #071f0a 100%);
+  border-bottom-color: #66bb6a;
+}
+.vintage-envelope.theme-jade .vintage-wax-seal {
+  background: radial-gradient(circle at 35% 35%, #43a047 0%, #1b5e20 55%, #0d3813 100%);
+  border-color: #a5d6a7;
+}
+.vintage-envelope.theme-jade .vintage-inner-frame {
+  background: #f6fbf7;
+  border-color: #2e7d32;
+}
+.vintage-envelope.theme-jade .vintage-card-divider {
+  color: #2e7d32;
+}
+.vintage-envelope.theme-jade .vintage-card-title {
+  color: #1b5e20;
+}
+.vintage-envelope.theme-jade .vintage-open-btn {
+  background: #1b5e20;
+  border-color: #66bb6a;
+}
+
+/* ==========================================================================
+   RESPONSIVE – MOBILE FIRST (max-width: 768px & 480px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Header */
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 16px;
+    align-items: flex-start;
+  }
+  .header-brand { gap: 8px; }
+  .header-brand h1 { font-size: 1.25rem; }
+  .header-subtitle { display: none; }
+  .brand-logo-glow { font-size: 1.6rem; }
+  .header-actions { width: 100%; }
+  .user-info { flex-wrap: wrap; gap: 6px; width: 100%; }
+  .user-name { font-size: 0.82rem; }
+  .badge-gender { font-size: 0.75rem; padding: 3px 8px; }
+  .btn-logout { font-size: 0.78rem; padding: 6px 12px; margin-left: auto; }
+
+  /* Nav tabs */
+  .nav-tabs { gap: 10px; padding: 1rem 16px 0.5rem; }
+  .tab-btn .tab-shape-icon { width: 50px; height: 50px; font-size: 1.5rem; }
+  .tab-btn .tab-label { font-size: 0.68rem; }
+
+  /* Main content */
+  main { padding: 1.2rem 16px; }
+
+  /* Form */
+  .form-card { padding: 1.4rem 1.2rem; border-radius: 18px; }
+  .form-title { font-size: 1.45rem; }
+  .wish-chips { gap: 7px; }
+  .wish-chip { font-size: 0.78rem; padding: 6px 12px; }
+
+  /* Deck heading */
+  .deck-heading { font-size: 1.3rem; }
+  .deck-subheading { font-size: 0.82rem; }
+  .deck-header { margin-bottom: 28px; }
+
+  /* Fan stage – taller on tablet to allow spread */
+  .lixi-stage-wrapper {
+    min-height: 400px;
+    padding: 60px 8px 60px 8px;
+    overflow: visible;
+  }
+  .lixi-fan-deck { height: 340px; }
+  .lixi-card { width: 200px; height: 300px; }
+  .vintage-flap { height: 64px; }
+  .vintage-inner-frame { margin: 44px 8px 8px 8px; padding: 10px; }
+  .vintage-card-title { font-size: 0.92rem; }
+
+  /* Modal */
+  .card-detail {
+    padding: 22px 18px;
+    border-radius: 14px;
+    max-height: 90vh;
+  }
+  .card-detail h2 { font-size: 1.4rem; }
+  .vintage-letter-meta-grid { grid-template-columns: 1fr; }
+  .modal-msg { font-size: 0.9rem; }
+}
+
+@media (max-width: 480px) {
+  /* Nav tabs – smaller icons on small phones */
+  .nav-tabs { gap: 8px; padding: 0.8rem 12px 0.4rem; }
+  .tab-btn .tab-shape-icon { width: 42px; height: 42px; font-size: 1.25rem; }
+  .tab-btn .tab-label { font-size: 0.62rem; letter-spacing: 0; }
+
+  /* Form */
+  .form-card { padding: 1rem; }
+  .form-title { font-size: 1.2rem; }
+  .form-control { font-size: 0.88rem; padding: 10px 12px; }
+  .btn-send { font-size: 0.95rem; padding: 13px 20px; }
+
+  /* Fan deck – compact for small phones */
+  .lixi-stage-wrapper {
+    min-height: 320px;
+    padding: 50px 4px 50px 4px;
+    overflow: visible;
+  }
+  .lixi-fan-deck { height: 270px; max-width: 100%; }
+  .lixi-card { width: 155px; height: 235px; border-radius: 10px; }
+  .vintage-flap { height: 50px; }
+  .vintage-wax-seal { width: 32px; height: 32px; transform: translateY(12px); }
+  .vintage-wax-seal .wax-symbol { font-size: 0.9rem; }
+  .vintage-postage { top: 5px; right: 6px; }
+  .vintage-stamp { width: 24px; height: 28px; font-size: 0.65rem; }
+  .vintage-postmark { width: 26px; height: 26px; font-size: 0.4rem; }
+  .vintage-corner { font-size: 0.72rem; }
+  .vintage-inner-frame { margin: 36px 6px 6px 6px; padding: 8px; }
+  .vintage-dest-block { font-size: 0.7rem; }
+  .vintage-card-title { font-size: 0.8rem; max-height: 40px; }
+  .vintage-seal-badge { font-size: 0.62rem; padding: 2px 6px; }
+  .vintage-card-footer { font-size: 0.62rem; }
+  .vintage-open-btn { font-size: 0.58rem; padding: 2px 6px; }
+
+  /* Modal */
+  .card-detail { padding: 16px 12px; }
+  .card-detail h2 { font-size: 1.15rem; }
+  .modal-decor-top { font-size: 1rem; letter-spacing: 3px; }
+  .close-btn { font-size: 0.85rem; padding: 10px 20px; }
+
+  /* Toast */
+  .alert-toast { font-size: 0.82rem; padding: 10px 16px; }
+}
+
+/* ─── RECIPIENT SEARCH & AUTOCOMPLETE STYLES ─────────────────────────────── */
+.recipient-search-box {
+  position: relative;
+  margin-bottom: 1.2rem;
+}
+
+.input-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-search-wrapper .form-control {
+  padding-right: 42px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 105, 180, 0.45);
+  box-shadow: 0 4px 15px rgba(255, 64, 129, 0.12);
+  transition: all 0.25s ease;
+}
+
+.input-search-wrapper .form-control:focus {
+  border-color: #ff4081;
+  box-shadow: 0 0 20px rgba(255, 64, 129, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.search-mini-spinner {
+  position: absolute;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #ff4081;
+  border-radius: 50%;
+  animation: miniSpin 0.6s linear infinite;
+}
+
+@keyframes miniSpin {
+  to { transform: rotate(360deg); }
+}
+
+.recipient-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(24, 14, 30, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255, 105, 180, 0.45);
+  border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(244, 63, 94, 0.25);
+  margin-top: 6px;
+  max-height: 290px;
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 6px;
+  animation: dropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.recipient-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.recipient-item:last-child {
+  border-bottom: none;
+}
+
+.recipient-item:hover, .recipient-item.selected {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.28), rgba(139, 92, 246, 0.22));
+  transform: translateX(4px);
+}
+
+.recipient-info-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.recipient-avatar-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f43f5e, #ec4899);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
+  flex-shrink: 0;
+}
+
+.recipient-name-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.recipient-full-name {
+  font-weight: 700;
+  color: #fff;
+  font-size: 0.92rem;
+}
+
+.recipient-class {
+  font-size: 0.76rem;
+  color: #f48fb1;
+}
+
+.recipient-code-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(14, 165, 233, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(14, 165, 233, 0.35);
+}
+
+.recipient-empty-msg {
+  padding: 18px 14px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #e2e8f0;
+  line-height: 1.5;
+}
+
+.recipient-fields-row {
+  display: flex;
+  gap: 16px;
+}
+
+.input-highlight-pulse {
+  animation: inputPulse 0.8s ease;
+}
+
+@keyframes inputPulse {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); border-color: #10b981; }
+  50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.3); border-color: #10b981; }
+  100% { box-shadow: none; }
+}
+
+@media (max-width: 600px) {
+  .recipient-fields-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
