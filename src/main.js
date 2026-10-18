@@ -1,6 +1,9 @@
-// src/main.js - frontend logic with Gender-Adaptive Tabs and Card Creation
 import { api } from './api.js';
 import { CanvasParticleSystem } from './canvas-effects.js';
+import { initMusicPlayer } from './music-player.js';
+
+// Khởi động trình phát nhạc nền
+initMusicPlayer();
 
 // Canvas background particle system
 const particleSystem = new CanvasParticleSystem('bg-canvas');
@@ -407,8 +410,12 @@ function createLixiCardElement(card, isSent) {
   cardEl.className = 'lixi-card';
 
   const dateStr = new Date(card.createdAt).toLocaleDateString('vi-VN');
-  const recipientDisplay = card.recipientName || 'Bạn nữ thân mến';
+  const recipientDisplay = card.recipientName || (currentUser && !isSent ? currentUser.fullName : 'Bạn nữ thân mến');
   const senderDisplay = card.senderName || 'Người bạn giấu tên';
+
+  const defaultBadge = card.isDefault
+    ? `<span class="vintage-seal-badge default-gift" style="background: linear-gradient(135deg, #e91e63, #9c27b0); color: #fff; border: 1px solid rgba(255,255,255,0.4); margin-left: 6px;">🎁 Quà tặng 20/10</span>`
+    : '';
 
   const statusHtml = card.seenAt
     ? `<span class="vintage-seal-badge opened">✓ Đã mở thư ✨</span>`
@@ -472,7 +479,7 @@ function createLixiCardElement(card, isSent) {
         </h4>
 
         <div class="vintage-status-row">
-          ${statusHtml}
+          ${statusHtml} ${defaultBadge}
         </div>
 
         <div class="vintage-card-footer">
@@ -507,7 +514,8 @@ async function loadReceivedCards() {
       return;
     }
 
-    cards.forEach(card => {
+    cards.forEach((card, index) => {
+      card.isFirstCard = (index === 0);
       const cardEl = createLixiCardElement(card, false);
       list.appendChild(cardEl);
     });
@@ -559,21 +567,119 @@ const modalFrom = document.getElementById('modal-from');
 const modalMsg = document.getElementById('modal-msg');
 const modalClose = document.getElementById('modal-close');
 
-modalClose?.addEventListener('click', () => {
+let currentModalCard = null;
+let currentModalIsSent = false;
+let continueRedirectTimer = null;
+let shouldTriggerStoryAfterClose = false;
+
+function closeCardModal() {
+  if (!modal || !modal.classList.contains('active')) return;
   modal.classList.remove('active');
+
+  // CHỈ HIỆN THÔNG BÁO SANG TRANG QUÀ TẶNG KHI BACKEND XÁC NHẬN:
+  // Lần đầu tiên bạn nữ mở bức thiệp trong CSDL (Backend đã lưu vĩnh viễn HasSeenGiftStory = true).
+  // Dù người dùng có xóa localStorage, các lần sau Backend vẫn trả về triggerStoryPrompt = false.
+  if (shouldTriggerStoryAfterClose) {
+    shouldTriggerStoryAfterClose = false;
+    triggerContinuePrompt();
+  }
+
+  currentModalCard = null;
+}
+
+modalClose?.addEventListener('click', closeCardModal);
+modal?.addEventListener('click', (e) => {
+  if (e.target === modal) closeCardModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal?.classList.contains('active')) {
+    closeCardModal();
+  }
 });
 
-modal?.addEventListener('click', (e) => {
-  if (e.target === modal) modal.classList.remove('active');
-});
+function triggerContinuePrompt() {
+  let overlay = document.getElementById('continue-prompt-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'continue-prompt-overlay';
+    overlay.className = 'continue-prompt-overlay';
+    document.body.appendChild(overlay);
+  }
+
+  let banner = document.getElementById('continue-prompt-banner');
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'continue-prompt-banner';
+    banner.className = 'continue-prompt-banner';
+    banner.innerHTML = `
+      <div class="banner-icon">🌸</div>
+      <div class="banner-title">chúng ta tiếp tục nhé? ✨</div>
+      <div class="banner-sub">Đang đưa bạn sang không gian câu chuyện đặc biệt dành riêng cho bạn... 💖</div>
+      <div class="banner-actions">
+        <button type="button" class="btn-continue-now" id="btn-continue-now">
+          <span>Tiếp tục ngay</span>
+          <span>🚀</span>
+        </button>
+        <button type="button" class="btn-continue-later" id="btn-continue-later" style="background: rgba(255,255,255,0.12); color: #f8bbd0; border: 1px solid rgba(255,255,255,0.25); padding: 10px 18px; border-radius: 9999px; font-family: inherit; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;">
+          <span>Để xem sau</span>
+        </button>
+      </div>
+      <div class="banner-progress">
+        <div class="banner-progress-bar" id="continue-progress-bar"></div>
+      </div>
+    `;
+    document.body.appendChild(banner);
+
+    banner.querySelector('#btn-continue-now')?.addEventListener('click', () => {
+      if (continueRedirectTimer) clearTimeout(continueRedirectTimer);
+      window.location.href = 'quatang.html?v=3.1';
+    });
+
+    banner.querySelector('#btn-continue-later')?.addEventListener('click', () => {
+      if (continueRedirectTimer) clearTimeout(continueRedirectTimer);
+      overlay.classList.remove('active');
+      banner.classList.remove('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      if (continueRedirectTimer) clearTimeout(continueRedirectTimer);
+      overlay.classList.remove('active');
+      banner.classList.remove('active');
+    });
+  }
+
+  // Hiển thị overlay làm mờ nền và trượt thông báo xuống
+  requestAnimationFrame(() => {
+    overlay.classList.add('active');
+    banner.classList.add('active');
+    const pBar = document.getElementById('continue-progress-bar');
+    if (pBar) {
+      pBar.style.width = '0%';
+      setTimeout(() => { pBar.style.width = '100%'; }, 50);
+    }
+  });
+
+  // Tự động chuyển hướng sau 3.5 giây nếu không bấm hủy
+  if (continueRedirectTimer) clearTimeout(continueRedirectTimer);
+  continueRedirectTimer = setTimeout(() => {
+    window.location.href = 'quatang.html?v=3.1';
+  }, 3500);
+}
 
 async function openCardModal(card, isSent = false) {
+  shouldTriggerStoryAfterClose = false;
+  currentModalCard = card;
+  currentModalIsSent = isSent;
   modalTitle.textContent = card.title;
 
-  const recipientDisplay = card.recipientName || 'Bạn nữ thân mến';
+  const recipientDisplay = card.recipientName || (currentUser && !isSent ? currentUser.fullName : 'Bạn nữ thân mến');
   const senderDisplay = card.senderName || 'Người bạn giấu tên';
-  const recipientCodeStr = card.recipientCode ? ` (MSSV: ${card.recipientCode})` : '';
-  const senderClassStr = card.senderClass ? ` (${card.senderClass})` : '';
+  const recipientCodeStr = card.recipientCode ? ` (MSSV: ${card.recipientCode})` : (currentUser && !isSent ? ` (MSSV: ${currentUser.studentCode})` : '');
+  const senderClassStr = (!card.isDefault && card.senderClass) ? ` (${card.senderClass})` : '';
+
+  const systemDefaultNotice = card.isDefault
+    ? `<div style="grid-column: 1 / -1; margin-top: 4px;"><span style="display:inline-block; padding: 3px 12px; background: linear-gradient(135deg, #e91e63, #9c27b0); color:#fff; border-radius:12px; font-size:0.78rem; font-weight:600; box-shadow: 0 2px 8px rgba(233,30,99,0.3);">🌸 Món quà thiệp mặc định từ Hệ thống 20/10 gửi tặng bạn!</span></div>`
+    : '';
 
   modalFrom.innerHTML = `
     <div class="vintage-letter-header-block">
@@ -584,6 +690,7 @@ async function openCardModal(card, isSent = false) {
       <div class="vintage-letter-meta-grid">
         <div><b>Kính gửi:</b> ${recipientDisplay}${recipientCodeStr}</div>
         <div><b>Gửi từ:</b> ${senderDisplay}${senderClassStr}</div>
+        ${systemDefaultNotice}
         <div style="grid-column: 1 / -1; margin-top: 2px;">
           <i>Gửi trao ngày: ${new Date(card.createdAt).toLocaleString('vi-VN')}</i>
           ${card.seenAt
@@ -600,12 +707,19 @@ async function openCardModal(card, isSent = false) {
   // Mark as seen if recipient opens
   if (!isSent && !card.seenAt) {
     try {
-      await api(`/cards/${card.cardId}/seen`, {
+      const res = await api(`/cards/${card.cardId}/seen`, {
         method: 'POST',
         body: { deviceId: navigator.userAgent }
       });
       card.seenAt = new Date().toISOString();
       loadReceivedCards();
+
+      // BACKEND KIỂM SOÁT HOÀN TOÀN:
+      // Nếu Backend xác nhận đây là LẦN ĐẦU TIÊN sinh viên này mở thiệp trong toàn bộ Database:
+      // (Backend đã lưu vĩnh viễn HasSeenGiftStory = true vào CSDL SQL Server)
+      if (res && res.triggerStoryPrompt === true) {
+        shouldTriggerStoryAfterClose = true;
+      }
     } catch (e) {
       console.warn('Mark seen failed', e);
     }

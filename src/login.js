@@ -1,5 +1,9 @@
-﻿import { api } from './api.js';
+import { api } from './api.js';
 import { CanvasParticleSystem } from './canvas-effects.js';
+import { initMusicPlayer } from './music-player.js';
+
+// Khởi động trình phát nhạc nền
+initMusicPlayer();
 
 // Canvas ve anh background & hieu ung hat canh hoa, trai tim, bui sao
 const particleSystem = new CanvasParticleSystem('bg-canvas');
@@ -64,12 +68,16 @@ const CLIENT_BANNED_WORDS = [
 
 function checkBannedWords(text) {
   if (!text) return null;
-  // Chuan hoa: lower-case, bo ky tu bypass
-  const normalized = text.toLowerCase().replace(/[*.\-@!]/g, '');
+  const lower = text.toLowerCase().trim();
+  const tokens = lower.split(/[\s,.;:!?*_\-@#%^&()+=\[\]{}|\\/]+/).filter(Boolean);
+
   for (const word of CLIENT_BANNED_WORDS) {
-    const normalizedWord = word.toLowerCase().replace(/[*.\-@!]/g, '');
-    if (normalizedWord && normalized.includes(normalizedWord)) {
-      return word;
+    const cleanWord = word.toLowerCase().trim();
+    if (!cleanWord) continue;
+    if (cleanWord.includes(' ')) {
+      if (lower.includes(cleanWord)) return word;
+    } else {
+      if (tokens.includes(cleanWord)) return word;
     }
   }
   return null;

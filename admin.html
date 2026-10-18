@@ -1078,6 +1078,281 @@
       border: 1px solid #6366f1;
     }
 
+    /* ─── DEFAULT TEMPLATES STYLES ─────────────────────────────────────────────── */
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 22px;
+      margin-top: 20px;
+    }
+
+    .template-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .template-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-light);
+      box-shadow: 0 16px 35px -5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(244, 63, 94, 0.1);
+    }
+
+    .template-card.targeted {
+      border-left: 3px solid var(--accent-purple);
+    }
+
+    .template-card.global {
+      border-left: 3px solid var(--accent-rose);
+    }
+
+    .template-card.inactive {
+      opacity: 0.65;
+      filter: grayscale(0.2);
+    }
+
+    .template-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .tag-pill.global {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      color: #fb7185;
+    }
+
+    .tag-pill.targeted {
+      background: rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      color: #c4b5fd;
+    }
+
+    .template-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .template-message-box {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-height: 130px;
+      overflow-y: auto;
+      margin-bottom: 14px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .template-message-box p {
+      margin-bottom: 6px;
+    }
+
+    .target-student-info {
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px dashed rgba(139, 92, 246, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .target-student-info strong {
+      color: #e9d5ff;
+    }
+
+    .template-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      gap: 8px;
+    }
+
+    .template-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Switch toggle */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: var(--surface-hover);
+      border: 1px solid var(--border-light);
+      transition: .25s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #fff;
+      transition: .25s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: var(--accent-rose);
+      border-color: var(--accent-rose);
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    /* Editor chips & presets */
+    .chips-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 12px;
+    }
+
+    .chip-btn {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-pill);
+      color: #fca5a5;
+      padding: 4px 11px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+    .chip-btn:hover {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: var(--accent-rose);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .preset-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .preset-btn {
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: var(--radius-md);
+      color: #c4b5fd;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .preset-btn:hover {
+      background: rgba(139, 92, 246, 0.25);
+      border-color: var(--accent-purple);
+      color: #fff;
+    }
+
+    .student-badge-result {
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .student-badge-result.found {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+    .student-badge-result.not-found {
+      background: rgba(14, 165, 233, 0.12);
+      border: 1px solid rgba(14, 165, 233, 0.3);
+      color: #7dd3fc;
+    }
+
+    .live-preview-box {
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.08), rgba(139, 92, 246, 0.08));
+      border: 1.5px dashed rgba(244, 63, 94, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      margin-top: 14px;
+    }
+    .live-preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--accent-rose);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .live-preview-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .live-preview-body {
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
     /* ─── RESPONSIVE BREAKPOINTS ───────────────────────────────────────────────── */
     @media (max-width: 1024px) {
       .chart-grid {
@@ -1214,6 +1489,15 @@
           </svg>
         </div>
         <span>Thiệp chúc mừng</span>
+      </div>
+
+      <div class="nav-item" data-page="templates" id="nav-templates">
+        <div class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <span>Thiệp mặc định</span>
       </div>
 
       <div class="sidebar-footer">
@@ -1498,6 +1782,88 @@
         </div>
       </div>
 
+      <!-- ─── PAGE 4: MẪU THIỆP MẶC ĐỊNH (DEFAULT TEMPLATES) ───────────────── -->
+      <div class="page" id="page-templates">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Mẫu Thiệp Mặc Định 20/10</h2>
+            <p class="page-sub">Cấu hình mẫu thiệp tự động tặng khi bạn nữ tạo tài khoản (mẫu chung hoặc cho từng MSSV cụ thể)</p>
+          </div>
+          <button class="btn-primary" id="btn-open-create-template" style="display: inline-flex; align-items: center; gap: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span>Tạo Mẫu Thiệp Mới</span>
+          </button>
+        </div>
+
+        <!-- Thống kê nhanh về mẫu thiệp -->
+        <div class="stat-grid" style="margin-bottom: 24px;">
+          <div class="stat-card rose">
+            <div class="stat-top">
+              <span class="stat-label">Tổng Mẫu Thiệp</span>
+              <div class="stat-icon-wrap">💌</div>
+            </div>
+            <div class="stat-value" id="stat-tpl-total">0</div>
+            <div class="stat-footnote">Đang lưu trong hệ thống</div>
+          </div>
+
+          <div class="stat-card gold">
+            <div class="stat-top">
+              <span class="stat-label">Mẫu Chung (Tất Cả Nữ)</span>
+              <div class="stat-icon-wrap">🌸</div>
+            </div>
+            <div class="stat-value" id="stat-tpl-global">0</div>
+            <div class="stat-footnote">Tự động trao khi tạo tài khoản</div>
+          </div>
+
+          <div class="stat-card purple">
+            <div class="stat-top">
+              <span class="stat-label">Mẫu Riêng Theo MSSV</span>
+              <div class="stat-icon-wrap">🎯</div>
+            </div>
+            <div class="stat-value" id="stat-tpl-targeted">0</div>
+            <div class="stat-footnote">Dành riêng cho MSSV chỉ định</div>
+          </div>
+
+          <div class="stat-card emerald">
+            <div class="stat-top">
+              <span class="stat-label">Thiệp Đã Trao Tặng</span>
+              <div class="stat-icon-wrap">🎁</div>
+            </div>
+            <div class="stat-value" id="stat-tpl-cards-sent">0</div>
+            <div class="stat-footnote">Thiệp mặc định đã đến tay bạn nữ</div>
+          </div>
+        </div>
+
+        <!-- Toolbar lọc và tìm kiếm -->
+        <div class="table-card" style="padding: 20px 24px; margin-bottom: 20px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;" id="template-filter-buttons">
+              <button class="page-nav-btn active" data-filter="all">Tất cả (<span id="count-all-tpl">0</span>)</button>
+              <button class="page-nav-btn" data-filter="global">Mẫu chung (<span id="count-global-tpl">0</span>)</button>
+              <button class="page-nav-btn" data-filter="targeted">Mẫu riêng theo MSSV (<span id="count-targeted-tpl">0</span>)</button>
+            </div>
+
+            <div class="search-input-wrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input type="text" class="search-input" id="templates-search" placeholder="Tìm theo tiêu đề, MSSV hoặc họ tên..." />
+            </div>
+          </div>
+        </div>
+
+        <!-- Container danh sách card mẫu thiệp -->
+        <div id="templates-grid-container" class="template-grid">
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-dim);">
+            Đang tải danh sách mẫu thiệp mặc định...
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -1558,6 +1924,157 @@
       <div class="modal-footer">
         <button class="btn-secondary" id="btn-cancel-confirm">Hủy</button>
         <button class="btn-danger" id="btn-execute-confirm">Xác nhận xóa</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── MODAL: TẠO / SỬA MẪU THIỆP MẶC ĐỊNH ──────────────────────────────── -->
+  <div class="modal-backdrop" id="modal-template-editor">
+    <div class="modal-content" style="max-width: 680px; max-height: 90vh; display: flex; flex-direction: column;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="tpl-modal-title">Tạo Mẫu Thiệp Mặc Định 20/10</h3>
+        <button class="btn-modal-close" id="btn-close-tpl-modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body" style="overflow-y: auto; padding: 24px; flex: 1;">
+        <!-- Phạm vi áp dụng -->
+        <div class="field-group" style="margin-bottom: 18px;">
+          <label style="font-size: 0.88rem; font-weight: 600; color: #fff; margin-bottom: 8px; display: block;">Phạm vi trao thiệp mặc định:</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <label style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--surface-elevated); border: 1.5px solid var(--border-light); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s;" id="label-scope-global">
+              <input type="radio" name="tpl-scope" id="scope-global" value="global" checked style="accent-color: var(--accent-rose);" />
+              <div>
+                <strong style="display: block; font-size: 0.88rem; color: #fff;">🌸 Mẫu chung</strong>
+                <small style="color: var(--text-dim); font-size: 0.76rem;">Áp dụng cho tất cả bạn nữ</small>
+              </div>
+            </label>
+
+            <label style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--surface-elevated); border: 1.5px solid var(--border-light); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s;" id="label-scope-targeted">
+              <input type="radio" name="tpl-scope" id="scope-targeted" value="targeted" style="accent-color: var(--accent-purple);" />
+              <div>
+                <strong style="display: block; font-size: 0.88rem; color: #fff;">🎯 Mẫu riêng theo MSSV</strong>
+                <small style="color: var(--text-dim); font-size: 0.76rem;">Dành cho 1 bạn nữ chỉ định</small>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Nhập MSSV mục tiêu (chỉ hiện khi chọn targeted) -->
+        <div class="field-group" id="grp-target-student" style="display: none; margin-bottom: 18px;">
+          <label for="tpl-target-student-code" style="font-size: 0.85rem; font-weight: 600; color: #fff; margin-bottom: 6px; display: block;">
+            Mã Sinh Viên (MSSV) nhận thiệp riêng này:
+          </label>
+          <div class="input-wrapper">
+            <input type="text" id="tpl-target-student-code" placeholder="Ví dụ: 26DH260089 hoặc 24DH241234" class="search-input" style="padding-left: 14px;" />
+          </div>
+          <!-- Badge kết quả kiểm tra sinh viên thời gian thực -->
+          <div id="target-student-check-badge" style="display: none;"></div>
+          
+          <label style="display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 0.84rem; color: var(--text-muted); cursor: pointer;">
+            <input type="checkbox" id="tpl-apply-immediately" checked style="accent-color: var(--accent-purple);" />
+            <span>Nếu sinh viên này đã có tài khoản, cập nhật/gửi ngay thiệp này vào hộp thư của bạn ấy</span>
+          </label>
+        </div>
+
+        <!-- Tiêu đề thiệp -->
+        <div class="field-group" style="margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+            <label for="tpl-title" style="font-size: 0.85rem; font-weight: 600; color: #fff;">Tiêu đề thiệp:</label>
+            <span style="font-size: 0.76rem; color: var(--text-dim);">Bấm tag để chèn biến vào vị trí con trỏ:</span>
+          </div>
+          <div class="chips-group" style="margin-top: 0;">
+            <button type="button" class="chip-btn" data-target="tpl-title" data-val="{FullName}">+ {FullName} (Tên bạn nữ)</button>
+            <button type="button" class="chip-btn" data-target="tpl-title" data-val="{StudentCode}">+ {StudentCode} (MSSV)</button>
+            <button type="button" class="chip-btn" data-target="tpl-title" data-val="{Class}">+ {Class} (Lớp)</button>
+          </div>
+          <input type="text" id="tpl-title" class="search-input" style="padding-left: 14px;" placeholder="Ví dụ: 🌸 Chúc mừng ngày 20/10 gửi đến bạn {FullName}!" />
+        </div>
+
+        <!-- Preset lời chúc mẫu -->
+        <div class="field-group" style="margin-bottom: 12px;">
+          <label style="font-size: 0.82rem; font-weight: 600; color: var(--text-dim); margin-bottom: 6px; display: block;">Gợi ý mẫu lời chúc hay (Bấm để điền nhanh):</label>
+          <div class="preset-group">
+            <button type="button" class="preset-btn" id="btn-preset-1">✨ Mẫu 1: Dịu dàng, toả sáng</button>
+            <button type="button" class="preset-btn" id="btn-preset-2">💖 Mẫu 2: Năng động, thành công</button>
+            <button type="button" class="preset-btn" id="btn-preset-3">🌷 Mẫu 3: Ngập tràn niềm vui & hoa</button>
+          </div>
+        </div>
+
+        <!-- Nội dung thiệp -->
+        <div class="field-group" style="margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+            <label for="tpl-message" style="font-size: 0.85rem; font-weight: 600; color: #fff;">Nội dung thiệp chúc mừng:</label>
+            <span style="font-size: 0.76rem; color: var(--text-dim);">Hỗ trợ placeholder {FullName}, {StudentCode}, {Class}</span>
+          </div>
+          <div class="chips-group" style="margin-top: 0;">
+            <button type="button" class="chip-btn" data-target="tpl-message" data-val="{FullName}">+ {FullName}</button>
+            <button type="button" class="chip-btn" data-target="tpl-message" data-val="{StudentCode}">+ {StudentCode}</button>
+            <button type="button" class="chip-btn" data-target="tpl-message" data-val="{Class}">+ {Class}</button>
+          </div>
+          <textarea id="tpl-message" rows="5" class="search-input" style="padding: 12px; font-family: inherit; line-height: 1.6; resize: vertical;" placeholder="Nhập nội dung lời chúc 20/10 gửi bạn nữ..."></textarea>
+        </div>
+
+        <!-- Ảnh đính kèm (tùy chọn) -->
+        <div class="field-group" style="margin-bottom: 18px;">
+          <label for="tpl-image-url" style="font-size: 0.85rem; font-weight: 600; color: #fff; margin-bottom: 6px; display: block;">Đường dẫn ảnh đính kèm (URL - tùy chọn):</label>
+          <input type="text" id="tpl-image-url" class="search-input" style="padding-left: 14px;" placeholder="Ví dụ: https://... hoặc để trống" />
+        </div>
+
+        <!-- Khung xem trước trực tiếp (Live Preview) -->
+        <div class="live-preview-box">
+          <div class="live-preview-header">
+            <span>👁️ Xem trước nội dung (Mô phỏng người nhận)</span>
+            <span id="preview-recipient-demo" style="color: #cbd5e1; font-weight: 500; text-transform: none;">Tên mẫu: Nguyễn Thu Hà (26DH260089)</span>
+          </div>
+          <div class="live-preview-title" id="live-preview-title">🌸 Chúc mừng ngày Phụ nữ Việt Nam 20/10!</div>
+          <div class="live-preview-body" id="live-preview-message">Chào bạn Nguyễn Thu Hà thân mến! Chúc bạn ngày 20/10 luôn xinh tươi và hạnh phúc! 🌷</div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="padding: 18px 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: flex-end; gap: 12px;">
+        <button class="btn-secondary" id="btn-cancel-tpl-modal">Hủy</button>
+        <button class="btn-primary" id="btn-save-tpl">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+          </svg>
+          <span id="btn-save-tpl-text">Lưu Mẫu Thiệp</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── MODAL: XEM TRƯỚC MẪU THIỆP ĐẦY ĐỦ ───────────────────────────────────── -->
+  <div class="modal-backdrop" id="modal-preview-template">
+    <div class="modal-content" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Xem Trước Thiệp Người Nhận Sẽ Nhận</h3>
+        <button class="btn-modal-close" id="btn-close-preview-modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-preview-box">
+          <div class="card-meta-row">
+            <span>Người gửi: <strong style="color:var(--accent-rose)">Hệ thống 20/10 🌸</strong></span>
+            <span>Người nhận: <strong id="preview-modal-recipient" style="color:#fff">Bạn nữ</strong></span>
+          </div>
+          <div class="card-title-preview" id="preview-modal-title">Tiêu đề thiệp</div>
+          <div class="card-message-preview" id="preview-modal-message">Nội dung lời chúc...</div>
+          <img src="" id="preview-modal-card-img" class="card-img-preview" style="display:none;" alt="Ảnh đính kèm" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btn-close-preview-modal-btn">Đóng</button>
       </div>
     </div>
   </div>
