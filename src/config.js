@@ -12,14 +12,5 @@ export const API_BASE = window.API_BASE_URL || (
           : '/api'
       )
 );
-
-/**
- * 👉 CẤU HÌNH ĐƯỜNG DẪN NHẠC NỀN:
- * 
- * - Bạn chỉ cần copy file nhạc (định dạng .mp3, .wav, .ogg, .m4a) vào thư mục: frontend/assets/
- *   (Ví dụ: frontend/assets/bg-music.mp3)
- * - Sau đó sửa tên file ở biến MUSIC_URL bên dưới.
- * - Hoặc bạn có thể dán trực tiếp một đường link nhạc online (https://...) vào đây.
- */
 export const MUSIC_URL = 'assets/bg-music.mp3';
 
