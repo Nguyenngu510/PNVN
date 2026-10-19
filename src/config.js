@@ -1,17 +1,5 @@
-/**
- * CẤU HÌNH KẾT NỐI API CHO TOÀN BỘ FRONTEND
- * 
- * - Chạy Local: Hệ thống tự động nhận diện localhost.
- * - Triển khai Frontend lên GitHub Pages:
- *   + Điền URL public của Backend vào biến BACKEND_URL bên dưới.
- *   + LƯU Ý QUAN TRỌNG: GitHub Pages chạy HTTPS, vì vậy URL Backend BẮT BUỘC phải là HTTPS
- *     (ví dụ dùng Cloudflare Tunnel hoặc ngrok HTTPS: https://your-tunnel.trycloudflare.com/api)
- *     để không bị trình duyệt chặn lỗi Mixed Content (HTTPS -> HTTP).
- */
 
-// 👉 ĐIỀN ĐỊA CHỈ BACKEND CỦA BẠN VÀO ĐÂY KHI DEPLOY LÊN GITHUB:
-// Ví dụ: const BACKEND_URL = 'https://card2010-backend.trycloudflare.com/api';
-const BACKEND_URL = ''; 
+const BACKEND_URL = 'http://123.27.226.178:5000/'; 
 
 export const API_BASE = window.API_BASE_URL || (
   BACKEND_URL !== '' 
