@@ -1,10 +1,6 @@
-/**
- * Admin Dashboard Logic – Thiệp 20/10
- * Quản trị truy cập, người dùng, thiệp gửi & biểu đồ thống kê
- */
+
 import { API_BASE } from './config.js';
 
-// Global application state
 const state = {
   adminKey: sessionStorage.getItem('admin_key') || localStorage.getItem('admin_key') || '',
   activePage: 'dashboard',
@@ -35,10 +31,9 @@ const state = {
     checkedStudent: null
   },
   selectedCard: null,
-  pendingDeleteAction: null // { type: 'user'|'card'|'template', id: string, name: string }
+  pendingDeleteAction: null
 };
 
-// Chart instances registry
 const charts = {
   otp: null,
   cards: null,
@@ -46,7 +41,6 @@ const charts = {
   gender: null
 };
 
-// ─── API HELPER ─────────────────────────────────────────────────────────────
 async function adminFetch(endpoint, options = {}) {
   const headers = {
     'Content-Type': 'application/json',
@@ -60,7 +54,6 @@ async function adminFetch(endpoint, options = {}) {
   });
 
   if (resp.status === 401) {
-    // Key không hợp lệ hoặc đã hết hạn
     showLoginOverlay(true);
     throw new Error('Khóa quản trị (Admin Key) không hợp lệ!');
   }
@@ -81,7 +74,6 @@ async function adminFetch(endpoint, options = {}) {
   return resp.json();
 }
 
-// ─── TOAST NOTIFICATIONS ────────────────────────────────────────────────────
 let toastTimer = null;
 function showToast(message, type = 'success') {
   const toast = document.getElementById('toast');
@@ -100,7 +92,6 @@ function showToast(message, type = 'success') {
   }, 3500);
 }
 
-// ─── AUTHENTICATION FLOW ────────────────────────────────────────────────────
 function showLoginOverlay(showError = false) {
   const overlay = document.getElementById('login-overlay');
   const app = document.getElementById('app');
@@ -136,10 +127,7 @@ async function handleLogin() {
 
   try {
     state.adminKey = key;
-    // Thử gọi /api/admin/stats để xác thực key
     const stats = await adminFetch('/admin/stats');
-    
-    // Lưu key vào sessionStorage
     sessionStorage.setItem('admin_key', key);
     localStorage.setItem('admin_key', key);
 
@@ -167,7 +155,6 @@ function handleLogout() {
   showToast('Đã đăng xuất khỏi hệ thống quản trị', 'info');
 }
 
-// ─── DASHBOARD STATS & METRICS ──────────────────────────────────────────────
 async function loadDashboardStats() {
   try {
     const btnRefresh = document.getElementById('btn-refresh-stats');
@@ -209,19 +196,14 @@ function renderStats(stats) {
   setVal('stat-tpl-global', stats.totalGlobalTemplates ?? 0);
   setVal('stat-tpl-targeted', stats.totalTargetedTemplates ?? 0);
   setVal('stat-tpl-cards-sent', stats.totalDefaultCards ?? 0);
-
-  // Tính tỷ lệ mở thiệp
   const totalCards = stats.totalCards ?? 0;
   const totalSeen = stats.totalSeen ?? 0;
   const openRate = totalCards > 0 ? Math.round((totalSeen / totalCards) * 100) : 0;
   const rateEl = document.getElementById('stat-open-rate');
   if (rateEl) rateEl.textContent = `${openRate}%`;
-
-  // Render doughnut chart cho giới tính
   renderGenderChart(stats.totalMale ?? 0, stats.totalFemale ?? 0);
 }
 
-// ─── CHART.JS RENDERING ─────────────────────────────────────────────────────
 const CHART_COMMON_OPTIONS = {
   responsive: true,
   maintainAspectRatio: false,
@@ -274,7 +256,6 @@ function formatChartDate(dateStr) {
   return dateStr;
 }
 
-// 1. Biểu đồ lượt truy cập (OTP requests)
 async function loadOtpChart(days = state.chartDays.otp) {
   try {
     state.chartDays.otp = days;
@@ -314,7 +295,6 @@ async function loadOtpChart(days = state.chartDays.otp) {
   }
 }
 
-// 2. Biểu đồ lượng thiệp gửi
 async function loadCardsChart(days = state.chartDays.cards) {
   try {
     state.chartDays.cards = days;
@@ -354,7 +334,6 @@ async function loadCardsChart(days = state.chartDays.cards) {
   }
 }
 
-// 3. Biểu đồ sinh viên đăng ký mới
 async function loadStudentsChart(days = state.chartDays.students) {
   try {
     state.chartDays.students = days;
@@ -394,7 +373,6 @@ async function loadStudentsChart(days = state.chartDays.students) {
   }
 }
 
-// 4. Biểu đồ tỷ lệ giới tính (Doughnut)
 function renderGenderChart(maleCount, femaleCount) {
   const ctx = document.getElementById('chartGender')?.getContext('2d');
   if (!ctx) return;
@@ -533,7 +511,6 @@ function renderUsersTable(users) {
   });
 }
 
-// ─── CARDS MANAGEMENT ───────────────────────────────────────────────────────
 async function loadCards() {
   const tbody = document.getElementById('cards-tbody');
   if (tbody) {
@@ -1550,8 +1527,6 @@ function setupEvents() {
 document.addEventListener('DOMContentLoaded', async () => {
   setupNavigation();
   setupEvents();
-
-  // Kiểm tra nếu có sẵn admin key
   if (state.adminKey) {
     try {
       const stats = await adminFetch('/admin/stats');
@@ -1559,7 +1534,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       renderStats(stats);
       loadAllCharts();
     } catch {
-      // Key đã lưu không hợp lệ, hiển thị overlay đăng nhập
       state.adminKey = '';
       sessionStorage.removeItem('admin_key');
       localStorage.removeItem('admin_key');
