@@ -1,4 +1,3 @@
-
 const BACKEND_URL = 'https://considered-luther-colony-essay.trycloudflare.com/api'; 
 
 export const API_BASE = window.API_BASE_URL || (
