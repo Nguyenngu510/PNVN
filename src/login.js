@@ -2,10 +2,8 @@ import { api } from './api.js';
 import { CanvasParticleSystem } from './canvas-effects.js';
 import { initMusicPlayer } from './music-player.js';
 
-// Khởi động trình phát nhạc nền
 initMusicPlayer();
 
-// Canvas ve anh background & hieu ung hat canh hoa, trai tim, bui sao
 const particleSystem = new CanvasParticleSystem('bg-canvas');
 
 let currentStudentCode = '';
@@ -31,10 +29,8 @@ function hideAlert(box) {
   box.style.display = 'none';
 }
 
-// ─── DANH SACH TU CAM (CLIENT-SIDE) ──────────────────────────────────────────
-// Chi validate nhanh cho fullName – backend kiem tra toan dien hon
 const CLIENT_BANNED_WORDS = [
-  // Tu tuc tieng Viet (duoc giu nguyen Unicode trong file nay)
+  // Tu tuc tieng Viet
   '\u0111\u1ecbt','\u0111it','d1t',
   'l\u1ed3n','lon','l0n',
   'c\u1eb7c','cac','c4c',
@@ -83,8 +79,6 @@ function checkBannedWords(text) {
   return null;
 }
 
-// ─── CHE DO GIAO DIEN: DANG KY LAN DAU / DANG NHAP LAI ──────────────────────
-// isLoginMode = true khi phat hien MSSV da dang ky -> chi can MSSV + Email
 let isLoginMode = false;
 const registerOnlyFields = document.getElementById('register-only-fields');
 const loginModeHint = document.getElementById('login-mode-hint');
@@ -131,12 +125,10 @@ function switchToRegisterMode() {
   if (subtitle) subtitle.textContent = 'Nh\u1eadp th\u00f4ng tin sinh vi\u00ean \u0111\u1ec3 nh\u1eadn m\u00e3 x\u00e1c th\u1ef1c qua Email';
 }
 
-// Khi nguoi dung thay doi MSSV -> reset ve che do dang ky
 document.getElementById('studentCode')?.addEventListener('input', () => {
   if (isLoginMode) switchToRegisterMode();
 });
 
-// 1. Submit form yeu cau OTP
 document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   hideAlert(alertBox);
@@ -154,7 +146,6 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     return;
   }
 
-  // Validate tu cam trong ho ten (chi khi dang ky lan dau)
   if (!isLoginMode && fullName) {
     const bannedWord = checkBannedWords(fullName);
     if (bannedWord) {
@@ -186,7 +177,6 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     startTimers(res.expiryMinutes || 10, 60);
   } catch (err) {
     const msg = err.message || '';
-    // MSSV da co trong he thong nhung email sai -> chuyen sang Login Mode
     const isRegisteredCode = msg.includes('\u0111\u00e3 \u0111\u01b0\u1ee3c \u0111\u0103ng k\u00fd') || msg.includes('\u0111\u00e3 \u0111\u01b0\u1ee3c t\u1ea1o');
     if (isRegisteredCode) {
       switchToLoginMode();
@@ -250,7 +240,6 @@ btnResend.addEventListener('click', async () => {
   }
 });
 
-// 4. Dong modal
 btnClose.addEventListener('click', () => {
   otpModal.classList.remove('active');
   clearInterval(expiryTimer);
