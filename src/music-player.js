@@ -1,18 +1,11 @@
-/**
- * Trình phát nhạc nền (Background Music Player) cho Thiệp 20/10
- * 
- * - Tự động phát nhạc (xử lý thông minh chính sách Autoplay của trình duyệt)
- * - Nút bấm điều khiển đĩa xoay nổi góc màn hình cực đẹp
- * - Hỗ trợ chỉnh âm lượng và ghi nhớ trạng thái người dùng
- */
+
 
 import { MUSIC_URL } from './config.js';
 
 export function initMusicPlayer() {
-  // Tránh tạo trùng lặp nếu đã khởi tạo
+
   if (document.getElementById('music-player-widget')) return;
 
-  // 1. Tìm hoặc tạo phần tử Audio
   let audio = document.getElementById('bg-music');
   if (!audio) {
     audio = document.createElement('audio');
@@ -22,17 +15,14 @@ export function initMusicPlayer() {
     document.body.appendChild(audio);
   }
 
-  // Ưu tiên đường dẫn cấu hình trong config.js nếu có, hoặc lấy từ src sẵn có trên HTML
   if (MUSIC_URL && MUSIC_URL.trim() !== '') {
     audio.src = MUSIC_URL;
   } else if (!audio.getAttribute('src')) {
     audio.src = 'assets/bg-music.mp3';
   }
 
-  // Cấu hình âm lượng mặc định 50%
   audio.volume = parseFloat(localStorage.getItem('bg_music_volume') || '0.5');
 
-  // 2. Tạo Widget giao diện phát nhạc nổi
   const widget = document.createElement('div');
   widget.id = 'music-player-widget';
   widget.className = 'music-player-widget';
@@ -115,7 +105,6 @@ export function initMusicPlayer() {
     localStorage.setItem('bg_music_disabled', 'true');
   }
 
-  // Xử lý nút bật / tắt
   btnToggle?.addEventListener('click', (e) => {
     e.stopPropagation();
     if (audio.paused) {
@@ -125,21 +114,18 @@ export function initMusicPlayer() {
     }
   });
 
-  // Điều chỉnh âm lượng
   volumeSlider?.addEventListener('input', (e) => {
     const val = parseFloat(e.target.value);
     audio.volume = val;
     localStorage.setItem('bg_music_volume', val.toString());
   });
 
-  // Khởi động phát nhạc (tôn trọng lựa chọn người dùng)
   const userDisabled = localStorage.getItem('bg_music_disabled') === 'true';
 
   if (!userDisabled) {
-    // Thử phát ngay
+
     playMusic();
 
-    // Nếu trình duyệt chặn, tự động kích hoạt ngay ở cú click / tap đầu tiên của người dùng
     const enableAudioOnFirstInteraction = () => {
       if (audio.paused && localStorage.getItem('bg_music_disabled') !== 'true') {
         playMusic();
