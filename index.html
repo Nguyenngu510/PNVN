@@ -16,10 +16,8 @@
 </head>
 
 <body>
-  <!-- Canvas nền hiệu ứng hạt: Cánh hoa 🌸, Trái tim ❤️ & Bụi sao ✨ -->
   <canvas id="bg-canvas"></canvas>
 
-  <!-- Header -->
   <header class="header">
     <div class="header-brand">
       <div class="brand-logo-glow">🌸</div>
@@ -39,7 +37,6 @@
     </div>
   </header>
 
-  <!-- Navigation Tabs (Nút tạo hình Bông hoa 🌸 & Trái tim 💖) -->
   <nav class="nav-tabs" id="nav-tabs">
     <button class="tab-btn tab-flower" id="btn-tab-inbox" data-tab="inbox" type="button">
       <span class="tab-shape-icon">🌸</span>
@@ -58,7 +55,6 @@
   </nav>
 
   <main>
-    <!-- TAB 1: FORM TẠO & GỬI THIỆP -->
     <section id="pane-create" class="tab-pane">
       <div class="form-card">
         <h2 class="form-title">Gửi Thiệp Chúc Mừng 20/10 🌸</h2>
@@ -66,7 +62,6 @@
           Nam!</p>
 
         <form id="create-card-form">
-          <!-- Hộp tìm kiếm bạn nữ nhanh (theo Tên hoặc MSSV) -->
           <div class="form-group recipient-search-box">
             <label for="recipientSearch">🔍 Tìm kiếm bạn nữ nhận thiệp (Gõ Tên hoặc MSSV)</label>
             <div class="input-search-wrapper">
@@ -74,7 +69,6 @@
                 placeholder="Gõ tên hoặc MSSV để chọn nhanh (Ví dụ: Hoa, 26DH260089...)" autocomplete="off" />
               <div id="recipient-search-spinner" class="search-mini-spinner" style="display: none;"></div>
             </div>
-            <!-- Danh sách gợi ý bạn nữ -->
             <div id="recipient-dropdown" class="recipient-dropdown" style="display: none;"></div>
           </div>
 
@@ -162,8 +156,6 @@
         </form>
       </div>
     </section>
-
-    <!-- TAB 2: HỘP THIỆP NHẬN ĐƯỢC -->
     <section id="pane-inbox" class="tab-pane">
       <div class="deck-header">
         <div>
@@ -175,8 +167,6 @@
         <div id="card-list" class="lixi-fan-deck"></div>
       </div>
     </section>
-
-    <!-- TAB 3: THIỆP ĐÃ TẠO / ĐÃ GỬI -->
     <section id="pane-sent" class="tab-pane">
       <div class="deck-header">
         <div>
@@ -189,8 +179,6 @@
       </div>
     </section>
   </main>
-
-  <!-- Modal xem chi tiết thiệp cổ điển -->
   <div id="card-modal" class="modal">
     <div class="card-detail">
       <div class="modal-decor-top">⚜️ ❧ 🌸 ☙ ⚜️</div>
@@ -201,10 +189,7 @@
     </div>
   </div>
 
-  <!-- Toast thông báo -->
   <div id="toast" class="alert-toast"></div>
-
-  <!-- Nhạc nền 20/10: Bạn có thể sửa đường dẫn file nhạc tại thuộc tính src bên dưới (hoặc trong file src/config.js) -->
   <audio id="bg-music" src="assets/bg-music.mp3" loop preload="auto"></audio>
 
   <script type="module" src="src/main.js?v=2.5"></script>
