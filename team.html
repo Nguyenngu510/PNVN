@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đội Ngũ Phát Triển - K4B</title>
+  <meta name="description" content="Gặp gỡ đội ngũ phát triển tài năng đứng sau trang web Thiệp Chúc Mừng 20/10 - CNTT K4B" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Dancing+Script:wght@600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="team-styles.css?v=2.0" />
+</head>
+
+<body>
+  <canvas id="team-canvas"></canvas>
+
+  <!-- Navigation Header -->
+  <header class="team-header">
+    <a href="index.html" class="back-btn" id="btn-back-home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </svg>
+      <span>Quay lại Trang Chủ</span>
+    </a>
+    <div class="team-header-brand">
+      <div class="brand-icon-dev">⚡</div>
+      <div>
+        <h1>Team K4B</h1>
+        <span class="team-header-sub">Đội ngũ phát triển & sáng tạo</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="team-hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-icon">🚀</span>
+        <span>K4B Team</span>
+      </div>
+      <h2 class="hero-title">
+        <span class="hero-line-1">Gặp Gỡ Những</span>
+        <span class="hero-line-2">"Em Yêu Khoa Học"</span>
+        <span class="hero-line-3">Đằng Sau Dự Án</span>
+      </h2>
+      <p class="hero-desc">
+        Chúng tớ là những sinh viên CNTT "em yêu khoa học !"
+        7 ngày cài lại win 3 lần :).Dù biết là dự án này còn xấu nhưng dù sao thì
+        đây cũng là tấm lòng chúng tớ muốn gửi đến các bạn nữ trong lớp cũng như trong trường. 💖
+      </p>
+    </div>
+  </section>
+
+  <!-- Team Members -->
+  <section class="team-section">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <h2 class="section-title">✦ Thành Viên Đội Ngũ ✦</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="team-grid" id="team-grid">
+
+      <!-- Member 1 -->
+      <article class="member-card" data-role="lead">
+        <div class="card-glow"></div>
+        <div class="card-inner">
+          <div class="member-avatar">
+            <div class="avatar-ring"></div>
+            <img src="assets/adminnvn.jpg" alt="Ảnh thành viên 1" class="avatar-img"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="avatar-fallback" style="display:none;">
+              <span>👨‍💻</span>
+            </div>
+            <div class="role-badge role-lead">Cầm Đầu</div>
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">Người Xấu Trai Nhất UB</h3>
+            <p class="member-role">All Lane All Tướng</p>
+            <p class="member-bio">
+              Là một anh chàng xấu trai nhất UB, ấy thế nhưng lại giàu...
+              tình cảm nhất UB :)) chứ không giàu kinh tế đâu hahaha
+              Thích thức đêm và uống cafe ☕ (khách hàng quen của quán Sol)<br>
+              "Ta Từng Uống Đến Cạn Trời Mây..."
+            </p>
+            <div class="member-socials">
+              <a href="https://mail.google.com/mail/?view=cm&to=ahhaclong@gmail.com"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="social-link gmail"
+   title="Gmail">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+</a>
+              <a href="#" class="social-link facebook" title="Facebook"
+                onclick="return handleFacebookClick(this, event);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Member 2 -->
+      <article class="member-card" data-role="frontend">
+        <div class="card-glow"></div>
+        <div class="card-inner">
+          <div class="member-avatar">
+            <div class="avatar-ring"></div>
+            <img src="assets/nch.jpg" alt="Ảnh thành viên 2" class="avatar-img"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            
+            <div class="role-badge role-frontend">Truyền Thông</div>
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">Nguyễn Công Hoài</h3>
+            <p class="member-role">Lớp Trưởng K4B</p>
+            <p class="member-bio">
+              Chả biết đẹp không nhưng tớ là lớp trưởng :)).
+              Luôn xuất... hiện những lúc các bạn nữ cần.
+              Người sẽ dẫn dắt các anh em K4B đi tán gái. 🎨
+            </p>
+            <div class="member-socials">
+              <a href="#" class="social-link gmail" title="gmail">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+    </svg>
+              </a>
+              <a href="#" class="social-link facebook" title="Facebook"
+                onclick="return handleFacebookClick(this, event);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Member 3 -->
+      <article class="member-card" data-role="backend">
+        <div class="card-glow"></div>
+        <div class="card-inner">
+          <div class="member-avatar">
+            <div class="avatar-ring"></div>
+            <img src="assets/member3.jpg" alt="Ảnh thành viên 3" class="avatar-img"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+           
+            <div class="role-badge role-backend">Sản Xuất</div>
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">Nguyễn Lê Thái Sơn</h3>
+            <p class="member-role">Bí Thư Lớp</p>
+            <p class="member-bio">
+              Đẹp trai nhà giàu.
+              Thích đánh cầu lông và muốn tìm các đối cứng để thi đấu cầu lông.
+              Thích các bạn nữ gạ...solo cầu lông. 🧋
+            </p>
+            <div class="member-socials">
+              <a href="#" class="social-link gmail" title="gmail">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+    </svg>
+              </a>
+              <a href="#" class="social-link facebook" title="Facebook"
+                onclick="return handleFacebookClick(this, event);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Solar System Canvas Section -->
+  <section class="solar-section">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <h2 class="section-title">🪐 Khám Phá Hệ Mặt Trời ☀️</h2>
+      <div class="section-line"></div>
+    </div>
+    <p class="solar-hint">Di chuột để xem thông tin hành tinh · Cuộn chuột để zoom · Kéo để di chuyển</p>
+    <div class="solar-system-container">
+  <canvas id="solar-canvas"></canvas>
+  <div id="planet-tooltip" class="planet-tooltip"></div>
+</div>
+    <div class="solar-controls">
+      <button class="solar-btn" id="btn-speed-down" title="Chậm lại">⏪ Chậm</button>
+      <button class="solar-btn active" id="btn-speed-normal" title="Tốc độ bình thường">▶️ Bình thường</button>
+      <button class="solar-btn" id="btn-speed-up" title="Nhanh hơn">⏩ Nhanh</button>
+      <button class="solar-btn" id="btn-toggle-orbits" title="Ẩn/hiện quỹ đạo">🔵 Quỹ đạo</button>
+      <button class="solar-btn" id="btn-toggle-names" title="Ẩn/hiện tên">🏷️ Tên</button>
+    </div>
+  </section>
+
+  <!-- Footer - Copyright -->
+  <footer class="team-footer">
+    <div class="footer-content">
+      <a href="index.html" class="btn-back-cta" id="btn-footer-back">
+        🌸 Quay Lại Trang Thiệp Chúc Mừng
+      </a>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">© 2026 CNTT K4B — Đại học Phạm Văn Đồng</p>
+      <p class="footer-copy sub">Dự án Thiệp Chúc Mừng 20/10 · Bảo lưu mọi quyền.</p>
+      <p class="footer-copy sub">Made with 💖 by K4B Dev Team</p>
+    </div>
+  </footer>
+
+  <script src="src/team.js?v=2.0"></script>
+</body>
+
+</html>
