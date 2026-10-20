@@ -1,6 +1,4 @@
-/* team-styles.css – Dev Team Portfolio Premium Dark Theme */
 
-/* ========== CSS VARIABLES ========== */
 :root {
   --bg-dark: #080510;
   --bg-card: rgba(15, 10, 25, 0.75);
@@ -17,8 +15,6 @@
   --font-display: 'Playfair Display', Georgia, serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
-
-/* ========== RESET & BASE ========== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -38,7 +34,6 @@ body {
   position: relative;
 }
 
-/* ========== CUSTOM CURSOR ========== */
 html, body {
   cursor: url('assets/cursor.svg') 3 3,
           url('assets/cursor.png') 3 3,
@@ -51,7 +46,6 @@ button, a, .member-card, .tech-stack-item, [role="button"] {
           pointer !important;
 }
 
-/* ========== CANVAS BACKGROUND ========== */
 #team-canvas {
   position: fixed;
   top: 0;
@@ -62,7 +56,6 @@ button, a, .member-card, .tech-stack-item, [role="button"] {
   pointer-events: none;
 }
 
-/* ========== HEADER ========== */
 .team-header {
   position: sticky;
   top: 0;
@@ -141,7 +134,6 @@ button, a, .member-card, .tech-stack-item, [role="button"] {
   letter-spacing: 0.5px;
 }
 
-/* ========== HERO SECTION ========== */
 .team-hero {
   position: relative;
   z-index: 10;
@@ -284,7 +276,6 @@ button, a, .member-card, .tech-stack-item, [role="button"] {
   letter-spacing: 1px;
 }
 
-/* ========== SECTION HEADERS ========== */
 .team-section, .tech-section {
   position: relative;
   z-index: 10;
@@ -318,14 +309,12 @@ button, a, .member-card, .tech-stack-item, [role="button"] {
   white-space: nowrap;
 }
 
-/* ========== TEAM GRID ========== */
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
 }
 
-/* ========== MEMBER CARD ========== */
 .member-card {
   position: relative;
   border-radius: 20px;
@@ -360,7 +349,6 @@ button, a, .member-card, .tech-stack-item, [role="button"] {
   100% { --card-angle: 360deg; }
 }
 
-/* Fallback for browsers that don't support @property */
 @property --card-angle {
   syntax: '<angle>';
   initial-value: 0deg;
@@ -392,7 +380,6 @@ button, a, .member-card, .tech-stack-item, [role="button"] {
   height: 100%;
 }
 
-/* Featured card (Team Lead) */
 .member-card.featured .card-inner {
   border-color: rgba(0, 212, 255, 0.2);
   background: rgba(0, 212, 255, 0.04);
@@ -613,7 +600,6 @@ button, a, .member-card, .tech-stack-item, [role="button"] {
   box-shadow: 0 6px 20px rgba(66, 103, 178, 0.3);
 }
 
-/* ========== TECH STACK SECTION ========== */
 .tech-stack-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -678,7 +664,6 @@ button, a, .member-card, .tech-stack-item, [role="button"] {
   text-align: center;
 }
 
-/* ========== FOOTER ========== */
 .team-footer {
   position: relative;
   z-index: 10;
@@ -747,7 +732,6 @@ button, a, .member-card, .tech-stack-item, [role="button"] {
   margin-top: 1.5rem;
 }
 
-/* ========== SCROLL REVEAL ANIMATION ========== */
 .member-card,
 .tech-stack-item {
   opacity: 0;
@@ -762,7 +746,6 @@ button, a, .member-card, .tech-stack-item, [role="button"] {
               transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
   .team-header {
     flex-direction: column;
