@@ -145,6 +145,17 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     showAlert(alertBox, 'M\u00e3 sinh vi\u00ean kh\u00f4ng \u0111\u00fang \u0111\u1ecbnh d\u1ea1ng! Quy \u0111\u1ecbnh: 10 k\u00fd t\u1ef1, 2 s\u1ed1 \u0111\u1ea7u t\u1eeb 20-26, ti\u1ebfp theo l\u00e0 DH, v\u00e0 6 s\u1ed1 cu\u1ed1i (V\u00ed d\u1ee5: 26DH260089).', 'error');
     return;
   }
+  //vilidate email
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|googlemail\.com|outlook\.com|hotmail\.com|live\.com|yahoo\.com|yahoo\.com\.vn|icloud\.com|me\.com|proton\.me|protonmail\.com|aol\.com|zoho\.com|fastmail\.com|[a-zA-Z0-9-]+\.edu(\.vn)?)$/i;
+
+ if (!emailRegex.test(email)) {
+    showAlert(
+        alertBox,
+        'Email không hợp lệ! Vui lòng sử dụng Gmail, Outlook, Yahoo hoặc email thuộc tên miền giáo dục .edu/.edu.vn.',
+        'error'
+    );
+    return;
+}
 
   if (!isLoginMode && fullName) {
     const bannedWord = checkBannedWords(fullName);
