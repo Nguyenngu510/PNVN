@@ -258,6 +258,48 @@ body {
 .theme-dot.sunset { background: linear-gradient(135deg, #ff7043, #e91e63); }
 .theme-dot.burgundy { background: linear-gradient(135deg, #8b1e2d, #ffd700); }
 
+.btn-team-page {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #00d4ff;
+  text-decoration: none;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.btn-team-page::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+  transform: rotate(25deg);
+  animation: teamBtnShimmer 4s infinite;
+}
+
+@keyframes teamBtnShimmer {
+  0% { left: -60%; }
+  30%, 100% { left: 140%; }
+}
+
+.btn-team-page:hover {
+  background: rgba(0, 212, 255, 0.18);
+  border-color: #00d4ff;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(0, 212, 255, 0.35), 0 0 12px rgba(168, 85, 247, 0.2);
+}
 .user-info {
   display: flex;
   align-items: center;
@@ -1993,48 +2035,4 @@ textarea.form-control {
     font-size: 0.88rem;
     padding: 8px 18px;
   }
-  .btn-team-page {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 18px;
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #00d4ff;
-  text-decoration: none;
-  background: rgba(0, 212, 255, 0.08);
-  border: 1px solid rgba(0, 212, 255, 0.3);
-  border-radius: 10px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.btn-team-page::after {
-  content: '';
-  position: absolute;
-  top: -50%; left: -60%;
-  width: 40%;
-  height: 200%;
-  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
-  transform: rotate(25deg);
-  animation: teamBtnShimmer 4s infinite;
-}
-
-@keyframes teamBtnShimmer {
-  0% { left: -60%; }
-  30%, 100% { left: 140%; }
-}
-
-.btn-team-page:hover {
-  background: rgba(0, 212, 255, 0.18);
-  border-color: #00d4ff;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 18px rgba(0, 212, 255, 0.35), 0 0 12px rgba(168, 85, 247, 0.2);
-}
-}
-
-
+  
