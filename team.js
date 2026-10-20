@@ -1,9 +1,7 @@
-// team.js – Canvas hiệu ứng Code Rain Matrix + Constellation Network + Interactive Particles
 
 (function () {
   'use strict';
 
-  // ========== CANVAS SETUP ==========
   const canvas = document.getElementById('team-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
@@ -23,13 +21,11 @@
   resize();
   window.addEventListener('resize', resize);
 
-  // ========== COLOR PALETTE ==========
   const CYAN = { r: 0, g: 212, b: 255 };
   const PURPLE = { r: 168, g: 85, b: 247 };
   const PINK = { r: 236, g: 72, b: 153 };
   const GREEN = { r: 16, g: 185, b: 129 };
 
-  // ========== 1. CODE RAIN (Matrix Style) ==========
   const codeChars = 'アイウエオカキクケコ01{}[]<>/=;:()ABCDEFabcdef0123456789#$@!%&*'.split('');
   const COLUMN_WIDTH = 18;
   let columns = [];
@@ -56,7 +52,6 @@
     for (const col of columns) {
       col.y += col.speed;
 
-      // Add new character
       if (Math.random() < 0.4) {
         col.chars.push({
           char: codeChars[Math.floor(Math.random() * codeChars.length)],
@@ -65,12 +60,10 @@
         });
       }
 
-      // Limit trail length
       if (col.chars.length > col.maxLen) {
         col.chars.shift();
       }
 
-      // Reset when off screen
       if (col.y > H + 200) {
         col.y = Math.random() * -100 - 50;
         col.chars = [];
@@ -96,7 +89,6 @@
           ctx.fillStyle = `rgba(168, 85, 247, ${alpha})`;
         }
 
-        // Head character brighter
         if (i === len - 1) {
           ctx.fillStyle = col.hue === 180
             ? `rgba(0, 255, 255, ${col.opacity * 3})`
@@ -113,7 +105,6 @@
     }
   }
 
-  // ========== 2. CONSTELLATION NETWORK ==========
   const nodes = [];
   const NODE_COUNT = Math.min(Math.floor((window.innerWidth * window.innerHeight) / 25000), 50);
   const CONNECT_DIST = 180;
@@ -135,7 +126,6 @@
     nodes.push(createNode(true));
   }
 
-  // Mouse interaction
   const mouse = { x: -1000, y: -1000, active: false };
   window.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX;
@@ -146,7 +136,6 @@
     mouse.active = false;
   });
 
-  // Click burst effect
   const bursts = [];
   window.addEventListener('click', (e) => {
     for (let i = 0; i < 12; i++) {
@@ -178,11 +167,9 @@
       node.y += node.vy;
       node.pulse += node.pulseSpeed;
 
-      // Bounce off edges
       if (node.x < 0 || node.x > W) node.vx *= -1;
       if (node.y < 0 || node.y > H) node.vy *= -1;
 
-      // Mouse attraction
       if (mouse.active) {
         const dx = mouse.x - node.x;
         const dy = mouse.y - node.y;
@@ -269,14 +256,12 @@
       ctx.fill();
     }
   }
-
-  // ========== 3. BURST PARTICLES ==========
   function updateBursts() {
     for (let i = bursts.length - 1; i >= 0; i--) {
       const b = bursts[i];
       b.x += b.vx;
       b.y += b.vy;
-      b.vy += 0.06; // gravity
+      b.vy += 0.06;
       b.life -= b.decay;
       if (b.life <= 0) {
         bursts.splice(i, 1);
@@ -313,8 +298,6 @@
       ctx.restore();
     }
   }
-
-  // ========== 4. FLOATING CODE SNIPPETS ==========
   const snippets = [
     'const love = true;',
     'function create() {}',
@@ -373,16 +356,13 @@
       ctx.fillText(ft.text, ft.x, ft.y);
     }
   }
-
-  // ========== MAIN ANIMATION LOOP ==========
   let frameCount = 0;
 
   function animate() {
-    // Clear with semi-transparent background for trail effect
+
     ctx.fillStyle = 'rgba(8, 5, 16, 0.92)';
     ctx.fillRect(0, 0, W, H);
 
-    // Subtle gradient overlay
     const grad = ctx.createRadialGradient(
       W * 0.5, H * 0.3, 0,
       W * 0.5, H * 0.5, Math.max(W, H) * 0.7
@@ -406,7 +386,6 @@
     updateBursts();
     drawBursts();
 
-    // Spawn floating text periodically
     frameCount++;
     if (frameCount % 180 === 0) {
       spawnFloatingText();
@@ -417,7 +396,6 @@
 
   animate();
 
-  // ========== SCROLL REVEAL ==========
   const observerOptions = {
     threshold: 0.15,
     rootMargin: '0px 0px -50px 0px',
@@ -426,7 +404,7 @@
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
       if (entry.isIntersecting) {
-        // Stagger the animation
+
         const delay = Array.from(entry.target.parentElement.children).indexOf(entry.target) * 120;
         setTimeout(() => {
           entry.target.classList.add('visible');
@@ -436,12 +414,10 @@
     });
   }, observerOptions);
 
-  // Observe cards & tech items
   document.querySelectorAll('.member-card, .tech-stack-item').forEach((el) => {
     observer.observe(el);
   });
 
-  // ========== STAT COUNTER ANIMATION ==========
   function animateCounters() {
     const counters = document.querySelectorAll('.stat-number');
     const counterObserver = new IntersectionObserver((entries) => {
@@ -455,7 +431,6 @@
           function updateCounter(currentTime) {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            // Ease out cubic
             const eased = 1 - Math.pow(1 - progress, 3);
             const current = Math.floor(target * eased);
             el.textContent = current.toLocaleString();
@@ -477,7 +452,6 @@
 
   animateCounters();
 
-  // ========== CARD TILT EFFECT (3D) ==========
   document.querySelectorAll('.member-card').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
@@ -498,10 +472,7 @@
   });
 
 })();
-/* ===========================
-   5. SOLAR SYSTEM CANVAS
-   Chỉ chạy nếu trang có #solar-canvas.
-   =========================== */
+
 (() => {
   'use strict';
 
@@ -513,7 +484,6 @@
   const wrapper = canvas.parentElement;
   if (!ctx || !wrapper) return;
 
-  // Thông tin các hành tinh
   const planets = [
     {
       name: 'Sao Thủy',
@@ -611,7 +581,6 @@
   let pointerY = -1000;
   let hovered = null;
 
-  // Tạo nền sao
   const stars = Array.from({ length: 180 }, () => ({
     x: Math.random(),
     y: Math.random(),
@@ -619,7 +588,6 @@
     phase: Math.random() * Math.PI * 2
   }));
 
-  // Điều chỉnh kích thước canvas
   function resize() {
     const rect = wrapper.getBoundingClientRect();
 
@@ -637,7 +605,6 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  // Tính vị trí Mặt Trời và quỹ đạo
   function layout() {
     return {
       cx: w / 2 + offsetX,
@@ -646,7 +613,6 @@
     };
   }
 
-  // Vẽ nền không gian
   function drawBackground() {
     ctx.clearRect(0, 0, w, h);
 
@@ -662,7 +628,6 @@
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, w, h);
 
-    // Các ngôi sao lấp lánh
     for (const s of stars) {
       const a = 0.35 + 0.65 * (
         0.5 + 0.5 * Math.sin(time * 0.8 + s.phase)
@@ -675,7 +640,6 @@
     }
   }
 
-  // Vẽ Mặt Trời
   function drawSun(cx, cy) {
     const glow = ctx.createRadialGradient(
       cx, cy, 2,
@@ -714,7 +678,6 @@
     }
   }
 
-  // Tính vị trí hành tinh theo thời gian
   function position(planet, i, l) {
     const radius = l.maxOrbit * planet.orbit;
     const angle = time * planet.speed + i * 0.72;
@@ -726,12 +689,10 @@
     };
   }
 
-  // Vẽ từng hành tinh
   function drawPlanet(p, pos) {
     const { x, y } = pos;
     const r = p.size;
 
-    // Vành đai Sao Thổ
     if (p.en === 'Saturn') {
       ctx.save();
       ctx.translate(x, y);
@@ -750,7 +711,6 @@
       ctx.restore();
     }
 
-    // Quầng sáng
     const glow = ctx.createRadialGradient(
       x, y, 0,
       x, y, r * 2.5
@@ -764,7 +724,6 @@
     ctx.arc(x, y, r * 2.5, 0, Math.PI * 2);
     ctx.fill();
 
-    // Bề mặt hành tinh
     const surface = ctx.createRadialGradient(
       x - r * 0.35,
       y - r * 0.35,
@@ -781,7 +740,6 @@
     ctx.arc(x, y, r, 0, Math.PI * 2);
     ctx.fill();
 
-    // Chi tiết màu xanh của Trái Đất
     if (p.en === 'Earth') {
       ctx.fillStyle = 'rgba(75,220,145,.9)';
       ctx.beginPath();
@@ -793,7 +751,6 @@
       ctx.fill();
     }
 
-    // Viền khi rê chuột
     if (hovered === p) {
       ctx.beginPath();
       ctx.arc(x, y, r + 5, 0, Math.PI * 2);
@@ -802,7 +759,6 @@
       ctx.stroke();
     }
 
-    // Tên hành tinh
     if (showNames) {
       ctx.font = '11px sans-serif';
       ctx.textAlign = 'center';
@@ -811,7 +767,6 @@
     }
   }
 
-  // Hiển thị thông tin khi rê chuột vào hành tinh
   function updateTooltip(positions) {
     if (!tooltip || dragging) return;
 
@@ -861,7 +816,6 @@
       Math.max(8, Math.min(pointerY + 15, h - th - 8)) + 'px';
   }
 
-  // Vòng lặp hoạt ảnh
   function animate(timestamp) {
     if (!canvas.isConnected) return;
 
@@ -882,7 +836,6 @@
       pos: position(p, i, l)
     }));
 
-    // Vẽ quỹ đạo
     if (showOrbits) {
       for (const item of positions) {
         ctx.beginPath();
@@ -901,7 +854,6 @@
       }
     }
 
-    // Vẽ các hành tinh
     positions.forEach(item => {
       drawPlanet(item.p, item.pos);
     });
@@ -911,7 +863,6 @@
     requestAnimationFrame(animate);
   }
 
-  // Di chuyển chuột và kéo hệ Mặt Trời
   canvas.addEventListener('pointermove', e => {
     const rect = canvas.getBoundingClientRect();
 
@@ -954,7 +905,6 @@
     }
   });
 
-  // Cuộn chuột để phóng to / thu nhỏ
   canvas.addEventListener('wheel', e => {
     e.preventDefault();
 
@@ -967,7 +917,6 @@
     );
   }, { passive: false });
 
-  // Các nút điều khiển tùy chọn
   document.getElementById('btn-speed-down')
     ?.addEventListener('click', () => {
       speed = Math.max(0.15, speed - 0.25);
@@ -1013,13 +962,11 @@ function handleFacebookClick(link, event) {
 
   const url = link.getAttribute('href')?.trim();
 
-  // Chưa điền link Facebook hoặc vẫn là href="#"
   if (!url || url === '#' || url === '') {
-    alert('anh ấy đã ẩn danh');
+    alert('hãi quá phải ẩn link fb thôi');
     return false;
   }
 
-  // Có link Facebook thì mở trang đó
   window.open(url, '_blank', 'noopener,noreferrer');
   return false;
 }
