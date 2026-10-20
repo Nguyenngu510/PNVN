@@ -142,7 +142,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
   // Validate MSSV
   const studentCodeRegex = /^2[0-6]DH\d{6}$/i;
   if (!studentCodeRegex.test(studentCode)) {
-    showAlert(alertBox, 'M\u00e3 sinh vi\u00ean kh\u00f4ng \u0111\u00fang \u0111\u1ecbnh d\u1ea1ng! Quy \u0111\u1ecbnh: 10 k\u00fd t\u1ef1, 2 s\u1ed1 \u0111\u1ea7u t\u1eeb 20-26, ti\u1ebfp theo l\u00e0 DH, 2 s\u1ed1 k\u1ebf ti\u1ebfp ph\u1ea3i gi\u1ed1ng 2 s\u1ed1 \u0111\u1ea7u, v\u00e0 4 s\u1ed1 cu\u1ed1i (V\u00ed d\u1ee5: 26DH260089).', 'error');
+    showAlert(alertBox, 'M\u00e3 sinh vi\u00ean kh\u00f4ng \u0111\u00fang \u0111\u1ecbnh d\u1ea1ng! Quy \u0111\u1ecbnh: 10 k\u00fd t\u1ef1, 2 s\u1ed1 \u0111\u1ea7u t\u1eeb 20-26, ti\u1ebfp theo l\u00e0 DH, v\u00e0 6 s\u1ed1 cu\u1ed1i (V\u00ed d\u1ee5: 26DH260089).', 'error');
     return;
   }
 
