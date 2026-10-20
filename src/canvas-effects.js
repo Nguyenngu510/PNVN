@@ -1,4 +1,4 @@
-// canvas-effects.js - Canvas vẽ ảnh nền từ folder frontend + Hiệu ứng hạt Bông hoa 🌸 & Trái tim ❤️
+
 
 export class CanvasParticleSystem {
   constructor(canvasId = 'bg-canvas') {
@@ -14,7 +14,6 @@ export class CanvasParticleSystem {
     this.mouse = { x: -1000, y: -1000, isMoving: false };
     this.mouseTimeout = null;
 
-    // Tải ảnh nền từ folder frontend (người dùng có thể thay đổi file ảnh trong folder)
     this.bgImage = null;
     this.loadBackgroundImage();
 
@@ -23,13 +22,11 @@ export class CanvasParticleSystem {
 
   loadBackgroundImage() {
     const img = new Image();
-    // Thử tải từ assets/bg.jpg, nếu không có thì thử bg.jpg
     img.src = 'assets/bg.jpg';
     img.onload = () => {
       this.bgImage = img;
     };
     img.onerror = () => {
-      // Fallback thử tìm ở thư mục gốc frontend
       const fallbackImg = new Image();
       fallbackImg.src = 'bg.jpg';
       fallbackImg.onload = () => {
@@ -45,13 +42,11 @@ export class CanvasParticleSystem {
     this.resize();
     window.addEventListener('resize', () => this.resize());
 
-    // Khởi tạo các hạt bông hoa & trái tim
     const count = Math.min(Math.floor((window.innerWidth * window.innerHeight) / 15000), 60);
     for (let i = 0; i < count; i++) {
       this.particles.push(this.createRandomParticle(true));
     }
 
-    // Tương tác chuột: rê chuột tạo vệt hoa & tim phát sáng
     window.addEventListener('mousemove', (e) => {
       this.mouse.x = e.clientX;
       this.mouse.y = e.clientY;
@@ -67,7 +62,6 @@ export class CanvasParticleSystem {
       }, 150);
     });
 
-    // Click chuột tạo chùm bung nở cánh hoa và trái tim
     window.addEventListener('click', (e) => {
       for (let i = 0; i < 9; i++) {
         this.bursts.push(new BurstParticle(e.clientX, e.clientY, true));
@@ -94,19 +88,19 @@ export class CanvasParticleSystem {
     const x = Math.random() * this.width;
 
     if (typeRoll < 0.48) {
-      // 48% Bông hoa 5 cánh & Cánh hoa đào rơi bồng bềnh 🌸
+
       return new FlowerParticle(x, y, this.width, this.height);
     } else if (typeRoll < 0.85) {
-      // 37% Trái tim nhỏ xinh bay lơ lửng ❤️
+
       return new HeartParticle(x, y, this.width, this.height);
     } else {
-      // 15% Bụi sao lấp lánh ✨
+
       return new SparkleParticle(x, y, this.width, this.height);
     }
   }
 
   animate() {
-    // 1. Vẽ ảnh nền (Background Image) phủ kín toàn màn hình (cover mode)
+
     if (this.bgImage && this.bgImage.complete && this.bgImage.naturalWidth > 0) {
       const imgRatio = this.bgImage.width / this.bgImage.height;
       const canvasRatio = this.width / this.height;
@@ -126,11 +120,10 @@ export class CanvasParticleSystem {
 
       this.ctx.drawImage(this.bgImage, drawX, drawY, drawW, drawH);
 
-      // Phủ một lớp bóng tối mờ sang trọng để chữ và nội dung thiệp luôn dễ đọc
       this.ctx.fillStyle = 'rgba(18, 8, 20, 0.48)';
       this.ctx.fillRect(0, 0, this.width, this.height);
     } else {
-      // Nền fallback nhung rượu vang Bordeaux
+
       const grad = this.ctx.createRadialGradient(
         this.width * 0.3, this.height * 0.2, 50,
         this.width * 0.5, this.height * 0.5, Math.max(this.width, this.height)
@@ -141,8 +134,6 @@ export class CanvasParticleSystem {
       this.ctx.fillStyle = grad;
       this.ctx.fillRect(0, 0, this.width, this.height);
     }
-
-    // 2. Vẽ & cập nhật các hạt bông hoa 🌸, trái tim ❤️, bụi sao ✨
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
       p.update(this.width, this.height, this.mouse);
@@ -153,7 +144,6 @@ export class CanvasParticleSystem {
       }
     }
 
-    // 3. Vẽ hạt tương tác chuột (vệt hoa tim phát sáng)
     for (let i = this.bursts.length - 1; i >= 0; i--) {
       const b = this.bursts[i];
       b.update();
@@ -167,21 +157,18 @@ export class CanvasParticleSystem {
   }
 }
 
-// ----------------------------------------------------
-// 1. Bông hoa 5 cánh & Cánh hoa đào rơi (Flower & Petal Particle 🌸)
-// ----------------------------------------------------
 class FlowerParticle {
   constructor(x, y, width, height) {
     this.x = x;
     this.y = y;
     this.size = Math.random() * 10 + 9; // Kích thước hoa
-    this.speedY = Math.random() * 0.85 + 0.55; // Tốc độ rơi dịu dàng
+    this.speedY = Math.random() * 0.85 + 0.55; // Tốc độ rơi
     this.speedX = Math.random() * 0.8 - 0.4;
     this.rotation = Math.random() * Math.PI * 2;
     this.rotationSpeed = (Math.random() - 0.5) * 0.028;
     this.opacity = Math.random() * 0.55 + 0.4;
     this.swingSpeed = Math.random() * 0.02 + 0.012;
-    this.isFullFlower = Math.random() > 0.45; // Đan xen hoa 5 cánh và cánh hoa lẻ
+    this.isFullFlower = Math.random() > 0.45;
 
     const colors = ['#ffb7b2', '#ffccd5', '#ff94c2', '#ff80ab', '#fff0f3', '#ffe4e6'];
     this.color = colors[Math.floor(Math.random() * colors.length)];
@@ -191,8 +178,6 @@ class FlowerParticle {
     this.y += this.speedY;
     this.x += this.speedX + Math.sin(this.y * this.swingSpeed) * 0.7;
     this.rotation += this.rotationSpeed;
-
-    // Gió đẩy khi chuột tới gần
     const dx = this.x - mouse.x;
     const dy = this.y - mouse.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
@@ -210,7 +195,6 @@ class FlowerParticle {
     ctx.globalAlpha = this.opacity;
 
     if (this.isFullFlower) {
-      // Vẽ bông hoa 5 cánh mềm mại
       ctx.fillStyle = this.color;
       for (let i = 0; i < 5; i++) {
         ctx.beginPath();
@@ -218,13 +202,11 @@ class FlowerParticle {
         ctx.fill();
         ctx.rotate((Math.PI * 2) / 5);
       }
-      // Nhụy hoa vàng óng phát sáng
       ctx.beginPath();
       ctx.arc(0, 0, this.size * 0.22, 0, Math.PI * 2);
       ctx.fillStyle = '#ffe082';
       ctx.fill();
     } else {
-      // Cánh hoa đào uốn lượn
       ctx.fillStyle = this.color;
       ctx.beginPath();
       ctx.moveTo(0, -this.size * 0.7);
@@ -241,15 +223,12 @@ class FlowerParticle {
   }
 }
 
-// ----------------------------------------------------
-// 2. Trái tim nhỏ xinh bay lơ lửng (Floating Hearts Particle ❤️)
-// ----------------------------------------------------
 class HeartParticle {
   constructor(x, y, width, height) {
     this.x = x;
     this.y = y;
-    this.size = Math.random() * 8 + 7; // Trái tim nhỏ nhắn
-    this.speedY = -(Math.random() * 0.75 + 0.45); // Bay lơ lửng nhẹ nhàng lên trên
+    this.size = Math.random() * 8 + 7; // Trái tim
+    this.speedY = -(Math.random() * 0.75 + 0.45); // Bay lơ lửng
     this.speedX = Math.random() * 0.6 - 0.3;
     this.opacity = Math.random() * 0.6 + 0.35;
     this.pulsePhase = Math.random() * Math.PI * 2;
@@ -280,12 +259,8 @@ class HeartParticle {
     ctx.translate(this.x, this.y);
     ctx.rotate(this.rotation);
     ctx.globalAlpha = this.opacity;
-
-    // Nhịp đập tim
     const scale = 1 + 0.14 * Math.sin(this.pulsePhase);
     ctx.scale(scale, scale);
-
-    // Vẽ hình trái tim cong bezier chuẩn xác
     ctx.fillStyle = this.color;
     ctx.beginPath();
     const s = this.size;
@@ -308,9 +283,6 @@ class HeartParticle {
   }
 }
 
-// ----------------------------------------------------
-// 3. Bụi sao phát sáng (Starlight Sparkle ✨)
-// ----------------------------------------------------
 class SparkleParticle {
   constructor(x, y, width, height) {
     this.x = x;
@@ -355,9 +327,6 @@ class SparkleParticle {
   }
 }
 
-// ----------------------------------------------------
-// 4. Hạt bung nở khi rê chuột & click (Burst Particle)
-// ----------------------------------------------------
 class BurstParticle {
   constructor(x, y, isClick = false) {
     this.x = x;

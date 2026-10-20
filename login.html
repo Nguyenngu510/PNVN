@@ -211,7 +211,6 @@
 </head>
 
 <body>
-  <!-- Canvas nền hiệu ứng hạt: Cánh hoa 🌸, Trái tim ❤️ & Bụi sao ✨ + Vẽ ảnh background -->
   <canvas id="bg-canvas"></canvas>
 
   <header class="header">
@@ -228,8 +227,6 @@
     <div class="auth-container">
       <h2 class="auth-title">Chào mừng bạn! ✨</h2>
       <p class="auth-subtitle" id="form-subtitle">Nhập thông tin sinh viên để nhận mã xác thực qua Email</p>
-
-      <!-- Hint kự đăng nhập (hiện khi phát hiện MSSV đã đăng ký) -->
       <div id="login-mode-hint"
         style="display:none; background: rgba(255,128,171,0.12); border: 1px solid #ff80ab; border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; font-size: 0.88rem; color: #ffb3cc; line-height: 1.5;">
         🔒 <b>Tài khoản đã được tạo.</b> Chỉ cần <b>MSSV</b> và <b>Email đã đăng ký</b> để đăng nhập.
@@ -239,14 +236,10 @@
       <div id="alert-msg" class="alert-box"></div>
 
       <form id="login-form">
-        <!-- Nhóm chỉ hiện khi đăng ký lần đầu -->
         <div id="register-only-fields">
           <div class="form-group">
             <label for="fullName">Họ và tên *</label>
             <input type="text" id="fullName" class="form-control" placeholder="Ví dụ: Nguyễn Văn A" required />
-            <!-- <small style="color: #bbb; font-size: 0.78rem; margin-top: 4px; display: block;">
-              ⚠️ Không được chứa từ tục tĩu hoặc không phù hợp.
-            </small> -->
           </div>
 
           <div class="form-group">
@@ -266,9 +259,6 @@
         <div class="form-group">
           <label for="studentCode">Mã sinh viên (MSSV) *</label>
           <input type="text" id="studentCode" class="form-control" placeholder="Ví dụ: 26DH268888" required />
-          <!-- <small style="color: #bbb; font-size: 0.8rem; margin-top: 4px; display: block;">
-            Quy định: 2 số đầu (20-26) + DH + 2 số đầu lặp lại + 4 số cuối (Ví dụ: 26DH260089)
-          </small> -->
         </div>
 
         <div class="form-group">
@@ -281,7 +271,6 @@
     </div>
   </main>
 
-  <!-- Modal nhập OTP -->
   <div id="otp-modal" class="otp-modal">
     <div class="otp-box">
       <h3 style="color:#ff80ab; margin-bottom: 8px;">Nhập mã OTP</h3>

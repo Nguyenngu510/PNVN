@@ -1,11 +1,8 @@
 import { api } from './api.js';
 import { CanvasParticleSystem } from './canvas-effects.js';
 import { initMusicPlayer } from './music-player.js';
-
-// Khởi động trình phát nhạc nền
 initMusicPlayer();
 
-// Canvas background particle system
 const particleSystem = new CanvasParticleSystem('bg-canvas');
 
 // 1. Auth check
@@ -77,16 +74,14 @@ tabButtons.forEach(btn => {
   });
 });
 
-// Default tab: Nam -> create; Nu -> inbox
 switchTab(isMale ? 'create' : 'inbox');
 
 if (isMale) {
-  // Show template selector for male users only
+
   const tmplGrp = document.getElementById('template-group');
   if (tmplGrp) tmplGrp.style.display = 'block';
 }
 
-// Khởi tạo trình soạn thảo TinyMCE: Lấy API key từ Backend (appsettings.json)
 async function setupTinyMCE() {
   let apiKey = '';
   try {
@@ -98,7 +93,6 @@ async function setupTinyMCE() {
     console.warn('Không thể lấy TinyMCE API key từ backend:', e);
   }
 
-  // Nạp thư viện TinyMCE
   await new Promise((resolve, reject) => {
     if (window.tinymce) {
       resolve();
@@ -107,18 +101,14 @@ async function setupTinyMCE() {
 
     const script = document.createElement('script');
     script.referrerPolicy = 'origin';
-
-    // Nếu bạn đã điền key trong backend appsettings.json -> dùng Cloud TinyMCE với key đó
     if (apiKey && apiKey !== 'no-api-key') {
       script.src = `https://cdn.tiny.cloud/1/${apiKey}/tinymce/6/tinymce.min.js`;
     } else {
-      // Nếu chưa điền key trong appsettings.json -> dùng CDN cộng đồng miễn phí (không bao giờ báo lỗi key)
       script.src = `https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.3/tinymce.min.js`;
     }
 
     script.onload = resolve;
     script.onerror = () => {
-      // Dự phòng nếu CDN chính gặp sự cố mạng
       const fallback = document.createElement('script');
       fallback.src = 'https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.3/tinymce.min.js';
       fallback.onload = resolve;
@@ -128,7 +118,6 @@ async function setupTinyMCE() {
     document.head.appendChild(script);
   });
 
-  // Hủy instance cũ nếu đã tồn tại để tránh xung đột
   if (window.tinymce?.get('cardMessage')) {
     window.tinymce.get('cardMessage').remove();
   }
@@ -184,14 +173,12 @@ document.querySelectorAll('.envelope-option').forEach(opt => {
   });
 });
 
-// ─── TÌM KIẾM BẠN NỮ & TỰ ĐỘNG ĐIỀN MSSV + HỌ TÊN (TỐI ƯU HIỆU SUẤT) ──────────
 const recipientSearchInput = document.getElementById('recipientSearch');
 const recipientDropdown = document.getElementById('recipient-dropdown');
 const searchSpinner = document.getElementById('recipient-search-spinner');
 const recipientCodeInput = document.getElementById('recipientCode');
 const recipientNameInput = document.getElementById('recipientName');
 
-// Cache kết quả tìm kiếm cục bộ để không bao giờ gọi trùng lặp (Instant 0ms response)
 const searchCache = new Map();
 let searchDebounceTimer = null;
 let currentAbortController = null;
@@ -199,13 +186,11 @@ let currentAbortController = null;
 async function performRecipientSearch(query) {
   const trimmed = (query || '').trim();
 
-  // Kiểm tra cache trước để phản hồi tức thì
   if (searchCache.has(trimmed)) {
     renderRecipientSuggestions(searchCache.get(trimmed));
     return;
   }
 
-  // Hủy request trước nếu đang chạy dở (tránh race condition khi gõ nhanh)
   if (currentAbortController) {
     currentAbortController.abort();
   }
@@ -258,21 +243,17 @@ function renderRecipientSuggestions(students) {
 
   recipientDropdown.style.display = 'block';
 
-  // Xử lý sự kiện click chọn bạn nữ
   recipientDropdown.querySelectorAll('.recipient-item').forEach(item => {
     item.addEventListener('click', () => {
       const code = item.getAttribute('data-code');
       const name = item.getAttribute('data-name');
 
-      // Tự động điền vào 2 ô
       if (recipientCodeInput) recipientCodeInput.value = code;
       if (recipientNameInput) recipientNameInput.value = name;
       if (recipientSearchInput) recipientSearchInput.value = `${name} (${code})`;
 
-      // Ẩn dropdown
       recipientDropdown.style.display = 'none';
 
-      // Hiệu ứng phản hồi nhẹ (glow xanh báo thành công)
       recipientCodeInput?.classList.add('input-highlight-pulse');
       recipientNameInput?.classList.add('input-highlight-pulse');
       setTimeout(() => {
@@ -295,7 +276,6 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
-// Bắt sự kiện gõ ô tìm kiếm với Debounce 280ms
 recipientSearchInput?.addEventListener('input', (e) => {
   clearTimeout(searchDebounceTimer);
   const val = e.target.value;
@@ -304,26 +284,22 @@ recipientSearchInput?.addEventListener('input', (e) => {
   }, 280);
 });
 
-// Khi focus vào ô tìm kiếm -> hiển thị ngay danh sách gợi ý bạn nữ
 recipientSearchInput?.addEventListener('focus', () => {
   performRecipientSearch(recipientSearchInput.value);
 });
 
-// Đóng dropdown khi click ra ngoài
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.recipient-search-box')) {
     if (recipientDropdown) recipientDropdown.style.display = 'none';
   }
 });
 
-// Nhấn phím Escape đóng dropdown
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && recipientDropdown) {
     recipientDropdown.style.display = 'none';
   }
 });
 
-// 5. Create & Send Card Form
 const createForm = document.getElementById('create-card-form');
 const btnSubmitCard = document.getElementById('btn-submit-card');
 
@@ -371,7 +347,6 @@ createForm?.addEventListener('submit', async (e) => {
   }
 });
 
-// 6. Fan layout - always fan mode, responsive mobile
 function applyFanTransforms(container) {
   if (!container) return;
   const cards = container.querySelectorAll('.lixi-card');
@@ -404,7 +379,6 @@ function applyFanTransforms(container) {
   });
 }
 
-// 7. Create envelope card DOM element
 function createLixiCardElement(card, isSent) {
   const cardEl = document.createElement('div');
   cardEl.className = 'lixi-card';
@@ -421,7 +395,6 @@ function createLixiCardElement(card, isSent) {
     ? `<span class="vintage-seal-badge opened">✓ Đã mở thư ✨</span>`
     : `<span class="vintage-seal-badge sealed">● Niêm phong 📜</span>`;
 
-  // Envelope theme: check saved theme or deterministic theme
   const themes = ['classic', 'rose', 'royal', 'jade'];
   const symbols = { classic: '⚜️', rose: '🌸', royal: '👑', jade: '🍀' };
   const savedTheme = card.id ? localStorage.getItem(`envelope_theme_${card.id}`) : null;
@@ -497,7 +470,6 @@ function createLixiCardElement(card, isSent) {
   return cardEl;
 }
 
-// 8. Load received cards (Nu sinh)
 async function loadReceivedCards() {
   const list = document.getElementById('card-list');
   try {
@@ -575,10 +547,6 @@ let shouldTriggerStoryAfterClose = false;
 function closeCardModal() {
   if (!modal || !modal.classList.contains('active')) return;
   modal.classList.remove('active');
-
-  // CHỈ HIỆN THÔNG BÁO SANG TRANG QUÀ TẶNG KHI BACKEND XÁC NHẬN:
-  // Lần đầu tiên bạn nữ mở bức thiệp trong CSDL (Backend đã lưu vĩnh viễn HasSeenGiftStory = true).
-  // Dù người dùng có xóa localStorage, các lần sau Backend vẫn trả về triggerStoryPrompt = false.
   if (shouldTriggerStoryAfterClose) {
     shouldTriggerStoryAfterClose = false;
     triggerContinuePrompt();
@@ -647,8 +615,6 @@ function triggerContinuePrompt() {
       banner.classList.remove('active');
     });
   }
-
-  // Hiển thị overlay làm mờ nền và trượt thông báo xuống
   requestAnimationFrame(() => {
     overlay.classList.add('active');
     banner.classList.add('active');
@@ -659,7 +625,6 @@ function triggerContinuePrompt() {
     }
   });
 
-  // Tự động chuyển hướng sau 3.5 giây nếu không bấm hủy
   if (continueRedirectTimer) clearTimeout(continueRedirectTimer);
   continueRedirectTimer = setTimeout(() => {
     window.location.href = 'quatang.html?v=3.1';
@@ -714,9 +679,6 @@ async function openCardModal(card, isSent = false) {
       card.seenAt = new Date().toISOString();
       loadReceivedCards();
 
-      // BACKEND KIỂM SOÁT HOÀN TOÀN:
-      // Nếu Backend xác nhận đây là LẦN ĐẦU TIÊN sinh viên này mở thiệp trong toàn bộ Database:
-      // (Backend đã lưu vĩnh viễn HasSeenGiftStory = true vào CSDL SQL Server)
       if (res && res.triggerStoryPrompt === true) {
         shouldTriggerStoryAfterClose = true;
       }
@@ -726,7 +688,6 @@ async function openCardModal(card, isSent = false) {
   }
 }
 
-// 11. Badges
 function updateBadges(unseenCount) {
   const badge = document.getElementById('unseen-badge');
   const inboxCount = document.getElementById('inbox-count');
