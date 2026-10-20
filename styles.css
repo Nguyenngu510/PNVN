@@ -1,4 +1,4 @@
-/* styles.css – premium dark glassmorphism 20/10 theme */
+
 :root {
   --bg: #0d0a12;
   --card-bg: rgba(255, 255, 255, 0.06);
@@ -16,8 +16,6 @@
   margin: 0;
   padding: 0;
 }
-
-/* Background Canvas - Hiệu ứng hạt Cánh hoa, Trái tim & Bụi sao */
 #bg-canvas {
   position: fixed;
   top: 0;
@@ -27,13 +25,6 @@
   z-index: 0;
   pointer-events: none;
 }
-
-/* ==========================================================================
-   CUSTOM CURSOR (Tùy chỉnh con trỏ chuột từ thư mục frontend)
-   Người dùng có thể đổi ảnh con trỏ bằng cách thay các file sau:
-   - Con trỏ mặc định: frontend/assets/cursor.svg, frontend/assets/cursor.png, hoặc frontend/cursor.png / cursor.svg / cursor.cur
-   - Con trỏ khi trỏ vào nút/link: frontend/assets/cursor-pointer.svg / cursor-pointer.png, hoặc frontend/cursor-pointer.png / cursor-pointer.svg / cursor-pointer.cur
-   ========================================================================== */
 html, body {
   cursor: url('assets/cursor.svg') 3 3,
           url('assets/cursor.png') 3 3,
@@ -296,10 +287,6 @@ body {
   border-color: #f44336;
   color: #ff8a80;
 }
-
-/* =========================================
-   Tabs Navigation - Bông Hoa 🌸 & Trái Tim 💖
-   ========================================= */
 .nav-tabs {
   display: flex;
   gap: 18px;
@@ -364,9 +351,6 @@ body {
   z-index: 2;
 }
 
-/* ==========================================
-   🌸 FLOWER SHAPE – Hình Bông Hoa 5 Cánh
-   ========================================== */
 .tab-btn.tab-flower .tab-shape-icon {
   display: flex;
   align-items: center;
@@ -379,7 +363,6 @@ body {
   transition: filter 0.25s, transform 0.25s;
 }
 
-/* Cánh hoa dưới hình nút bằng clip-path bông hoa */
 .tab-btn.tab-flower .tab-shape-icon::before {
   content: '';
   position: absolute;
@@ -391,7 +374,6 @@ body {
     0 4px 18px rgba(233, 30, 99, 0.25);
   transform: rotate(0deg);
   transition: background 0.25s, box-shadow 0.25s;
-  /* Tạo hình bông hoa bằng 5 vòng tròn xen kẽ */
   clip-path: polygon(
     50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%,
     50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
@@ -447,10 +429,6 @@ body {
   0%, 100% { transform: scale(1) rotate(0deg); }
   50%       { transform: scale(1.08) rotate(8deg); }
 }
-
-/* ==========================================
-   💖 HEART SHAPE – Hình Trái Tim
-   ========================================== */
 .tab-btn.tab-heart .tab-shape-icon {
   display: flex;
   align-items: center;
@@ -462,8 +440,6 @@ body {
   filter: drop-shadow(0 3px 10px rgba(255, 80, 130, 0.4));
   transition: filter 0.25s, transform 0.25s;
 }
-
-/* Vầng sáng trái tim phía sau emoji */
 .tab-btn.tab-heart .tab-shape-icon::before {
   content: '';
   position: absolute;
@@ -492,8 +468,6 @@ body {
   42%  { transform: scale(1.1); }
   70%  { transform: scale(1); }
 }
-
-/* Active state – golden underline glow */
 .tab-btn.active .tab-label {
   color: #ffd700;
   text-shadow:
@@ -535,8 +509,6 @@ main {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-/* Card Lists */
 .card-list {
   list-style: none;
   display: flex;
@@ -905,11 +877,6 @@ textarea.form-control {
 .modal.active {
   display: flex;
 }
-
-/* ==========================================================================
-   CLASSIC VINTAGE LETTER MODAL (BỨC THƯ THIỆP CỔ ĐIỂN ĐỒNG NHẤT)
-   ========================================================================== */
-
 .card-detail {
   background: #faf4e8 url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%238d6e63' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
   border: 4px double #b8860b;
@@ -1069,11 +1036,6 @@ textarea.form-control {
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
-
-/* ==========================================================================
-   CLASSIC VINTAGE FAN-OUT ENVELOPES DECK (THIỆP CỔ ĐIỂN XOÈ QUẠT)
-   ========================================================================== */
-
 .deck-header {
   display: flex;
   justify-content: space-between;
@@ -1180,7 +1142,6 @@ textarea.form-control {
   z-index: 5;
 }
 
-/* 3D Classic Red Wax Seal */
 .vintage-wax-seal {
   width: 42px;
   height: 42px;
@@ -1388,11 +1349,6 @@ textarea.form-control {
   border: 1px solid #d4af37;
 }
 
-/* ==========================================================================
-   VINTAGE ENVELOPE THEMES (Classic, Rose, Royal, Jade)
-   ========================================================================== */
-
-/* 1. Theme Rose (Hồng Pastel) */
 .vintage-envelope.theme-rose {
   background: linear-gradient(150deg, #880e4f 0%, #600735 60%, #3b0320 100%);
   border-color: #ff80ab;
@@ -1478,11 +1434,6 @@ textarea.form-control {
   background: #1b5e20;
   border-color: #66bb6a;
 }
-
-/* ==========================================================================
-   RESPONSIVE – MOBILE FIRST (max-width: 768px & 480px)
-   ========================================================================== */
-
 @media (max-width: 768px) {
   /* Header */
   .header {
@@ -1587,7 +1538,6 @@ textarea.form-control {
   .alert-toast { font-size: 0.82rem; padding: 10px 16px; }
 }
 
-/* ─── RECIPIENT SEARCH & AUTOCOMPLETE STYLES ─────────────────────────────── */
 .recipient-search-box {
   position: relative;
   margin-bottom: 1.2rem;
@@ -1804,7 +1754,6 @@ textarea.form-control {
   transition: transform 0.3s ease;
 }
 
-/* Hiệu ứng đĩa xoay khi phát nhạc */
 .music-player-widget.playing .disc-symbol {
   animation: spinDisc 3.5s linear infinite;
 }
@@ -1854,7 +1803,6 @@ textarea.form-control {
   letter-spacing: 0.2px;
 }
 
-/* Bảng âm lượng trượt khi rê chuột */
 .music-volume-panel {
   display: flex;
   align-items: center;
@@ -1906,9 +1854,6 @@ textarea.form-control {
   }
 }
 
-/* ==========================================================================
-   INTERACTIVE TRANSITION BANNER ("Chúng ta tiếp tục nhé?")
-   ========================================================================== */
 .continue-prompt-overlay {
   position: fixed;
   inset: 0;
@@ -2048,6 +1993,48 @@ textarea.form-control {
     font-size: 0.88rem;
     padding: 8px 18px;
   }
+  .btn-team-page {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #00d4ff;
+  text-decoration: none;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.btn-team-page::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+  transform: rotate(25deg);
+  animation: teamBtnShimmer 4s infinite;
+}
+
+@keyframes teamBtnShimmer {
+  0% { left: -60%; }
+  30%, 100% { left: 140%; }
+}
+
+.btn-team-page:hover {
+  background: rgba(0, 212, 255, 0.18);
+  border-color: #00d4ff;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(0, 212, 255, 0.35), 0 0 12px rgba(168, 85, 247, 0.2);
+}
 }
 
 
